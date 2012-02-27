@@ -59,6 +59,7 @@ function onRequest(request, response) {
     if (requestUrl === '/favicon.ico') {
         return;
     }
+
     // ### Grep the file system for tags
     // Grep results are in the format:
     //
@@ -67,7 +68,7 @@ function onRequest(request, response) {
     // An empty trailing element is deleted
     child = exec('grep -H -n -R -I \'#.*!.*^[0-9]\' *', function (err, stdout, stderr) {
         matches = stdout.split("\n");
-        delete (matches[(matches.length - 1)]);
+        matches.pop();
 
         /*
         Loop through all the matches and for each match take the first part as the file
@@ -85,16 +86,9 @@ function onRequest(request, response) {
             match = matches[i].split(":");
             file = match[0];
             line = match[1];
-            delete (match[0]);
-            delete (match[1]);
+            delete match[0];
+            delete match[1];
             entry = match.join('');
-            bang = entry.match(/![a-zA-Z0-9]+ \^[0-9]+/, '');
-            tag = entry.match(/![a-zA-Z0-9]+/)[0].substring(1);
-            if (tagGroup[tag] === undefined) {
-                tagGroup[tag] = [];
-            }
-            tagGroup[tag].push(ticketList.length);
-            priority = entry.match(/\^[0-9]+/)[0].substring(1);
             comment = entry.match(/#.*!/)[0];
             comment = comment.substring(1, comment.length - 1);
 
@@ -102,43 +96,50 @@ function onRequest(request, response) {
             // This is to avoid accidentally including things such as minified javascript files
             // that might contain the pattern match
             if (comment.length < 1000) {
+                bang = entry.match(/![a-zA-Z0-9]+ \^[0-9]+/, '');
+                tag = entry.match(/![a-zA-Z0-9]+/)[0].substring(1);
+                priority = entry.match(/\^[0-9]+/)[0].substring(1);
+                if (tagGroup[tag] === undefined) {
+                    tagGroup[tag] = [];
+                }
+                tagGroup[tag].push(ticketList.length);
                 ticketList[ticketList.length] = new Ticket(ticketList.length, file, line, comment, tag, priority);
             }
         }
 
         // If we're not looking for _"TODO"_s then skip to building the LOTS object
-        if (findTodos === false) {
+        if (findTodos) {
+            // ### Search the filesystem for _"TODO"_s
+            // Similar to the search for tags, a grep is performed, matches are found
+            // and then cleaned up.
+            //
+            // Tickets created here are assigned to the _TODO_ tag
+            child = exec('grep -H -n -R TODO *', function (err, stdout, stderr) {
+                matches = stdout.split("\n");
+                delete (matches[(matches.length - 1)]);
+
+                var i;
+                for (i in matches) {
+                    match = matches[i].split(":");
+                    file = match[0];
+                    line = match[1];
+                    delete match[0];
+                    delete match[1];
+                    comment = match.join('');
+
+                    if (comment.length < 1000) {
+                        if (tagGroup.TODO === undefined) {
+                            tagGroup.TODO = [];
+                        }
+                        tagGroup.TODO.push(ticketList.length);
+                        ticketList[ticketList.length] = new Ticket(ticketList.length, file, line, comment, 'TODO');
+                    }
+                }
+                buildLOTS(response);
+            });
+        } else {
             buildLOTS(response);
         }
-
-        // ### Search the filesystem for _"TODO"_s
-        // Similar to the search for tags, a grep is performed, matches are found
-        // and then cleaned up.
-        //
-        // Tickets created here are assigned to the _TODO_ tag
-        child = exec('grep -H -n -R TODO *', function (err, stdout, stderr) {
-            matches = stdout.split("\n");
-            delete (matches[(matches.length - 1)]);
-
-            var i;
-            for (i in matches) {
-                match = matches[i].split(":");
-                file = match[0];
-                line = match[1];
-                delete (match[0]);
-                delete (match[1]);
-                if (tagGroup.TODO === undefined) {
-                    tagGroup.TODO = [];
-                }
-                tagGroup.TODO.push(ticketList.length);
-                comment = match.join('');
-
-                if (comment.length < 1000) {
-                    ticketList[ticketList.length] = new Ticket(ticketList.length, file, line, comment, 'TODO');
-                }
-            }
-            buildLOTS(response);
-        });
     });
 
     /*
