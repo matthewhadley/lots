@@ -35,7 +35,6 @@ function Ticket(id, file, line, comment, tag, priority) {
     };
     return ticket;
 }
-
 /*
 ## **LOTS** in action
 Behind the scenes, **LOTS** uses grep on the local filesystem to find strings that match:
@@ -60,27 +59,42 @@ function onRequest(request, response) {
         return;
     }
 
-    // ### Grep the file system for tags
-    // Grep results are in the format:
-    //
-    //    `[file]:[line number]:[grep match]`
-    //
-    // An empty trailing element is deleted
-    child = exec('grep -H -n -R -I \'#.*!.*^[0-9]\' *', function (err, stdout, stderr) {
+    // ### Record a grep match as a new ticket
+    function createTicket(file, line, comment, tag, priority) {
+        // Only use comments that are less than 1000 chars.
+        // This is to avoid accidentally including things such as minified javascript files
+        // that might contain the pattern match
+        if (comment.length < 1000) {
+            if (tagGroup[tag] === undefined) {
+                tagGroup[tag] = [];
+            }
+            tagGroup[tag].push(ticketList.length);
+            ticketList[ticketList.length] = new Ticket(ticketList.length, file, line, comment, tag, priority);
+        }
+    }
+
+    /*
+    ### Build tickets from the grep results
+
+    Loop through all the matches and for each match take the first part as the file
+    name, the second part as the line number. Those entries are then deleted and the
+    remaining entries joined together to form the comment (this covers the case where
+    the comment might contain the grep deliminter).
+
+    Grep results are in the format:
+
+        `[file]:[line number]:[grep match]`
+
+
+    If a tag is passed, use that for the tag and simply use the grep match for the comment.
+    If no tag is passed, the comment is then stripped of everything before the \# and the actual tag, and
+    priority is extracted too.
+
+    These details are then used to create a new ticket object
+    */
+    function buildTickets(stdout, forceTag) {
         matches = stdout.split("\n");
         matches.pop();
-
-        /*
-        Loop through all the matches and for each match take the first part as the file
-        name, the second part as the line number. Those entries are then deleted and the
-        remaining entries joined together to form the comment (this covers the case where
-        the comment might contain the grep deliminter).
-
-        The comment is then stripped of everything before the \# and the actual tag and
-        priority is extracted too.
-
-        These details are then used to create a new ticket object
-        */
         var i;
         for (i in matches) {
             match = matches[i].split(":");
@@ -89,52 +103,28 @@ function onRequest(request, response) {
             delete match[0];
             delete match[1];
             entry = match.join('');
-            comment = entry.match(/#.*!/)[0];
-            comment = comment.substring(1, comment.length - 1);
-
-            // Only use comments that are less than 1000 chars.
-            // This is to avoid accidentally including things such as minified javascript files
-            // that might contain the pattern match
-            if (comment.length < 1000) {
-                bang = entry.match(/![a-zA-Z0-9]+ \^[0-9]+/, '');
+            if (forceTag) {
+                comment = entry;
+                tag = forceTag;
+                priority = undefined;
+            } else {
+                comment = entry.match(/#.*!/)[0];
+                comment = comment.substring(1, comment.length - 1);
                 tag = entry.match(/![a-zA-Z0-9]+/)[0].substring(1);
                 priority = entry.match(/\^[0-9]+/)[0].substring(1);
-                if (tagGroup[tag] === undefined) {
-                    tagGroup[tag] = [];
-                }
-                tagGroup[tag].push(ticketList.length);
-                ticketList[ticketList.length] = new Ticket(ticketList.length, file, line, comment, tag, priority);
             }
+            createTicket(file, line, comment, tag, priority);
         }
+    }
 
-        // If we're not looking for _"TODO"_s then skip to building the LOTS object
+    // ### Grep the filsystem for strings to build tickets from
+    // Grep the file system for tags and, optionally, for _"TODO"_s (which are then assigned the _TODO_ tag).
+    // Then build a **LOTS** object from the tickets.
+    child = exec('grep -H -n -R -I \'#.*!.*^[0-9]\' *', function (err, stdout, stderr) {
+        buildTickets(stdout);
         if (findTodos) {
-            // ### Search the filesystem for _"TODO"_s
-            // Similar to the search for tags, a grep is performed, matches are found
-            // and then cleaned up.
-            //
-            // Tickets created here are assigned to the _TODO_ tag
             child = exec('grep -H -n -R TODO *', function (err, stdout, stderr) {
-                matches = stdout.split("\n");
-                delete (matches[(matches.length - 1)]);
-
-                var i;
-                for (i in matches) {
-                    match = matches[i].split(":");
-                    file = match[0];
-                    line = match[1];
-                    delete match[0];
-                    delete match[1];
-                    comment = match.join('');
-
-                    if (comment.length < 1000) {
-                        if (tagGroup.TODO === undefined) {
-                            tagGroup.TODO = [];
-                        }
-                        tagGroup.TODO.push(ticketList.length);
-                        ticketList[ticketList.length] = new Ticket(ticketList.length, file, line, comment, 'TODO');
-                    }
-                }
+                buildTickets(stdout, 'TODO');
                 buildLOTS(response);
             });
         } else {
@@ -187,7 +177,6 @@ function onRequest(request, response) {
             response.writeHead(200, {"Content-Type": "text/html"});
             response.write(output);
             response.end();
-            return;
         });
     }
 }
