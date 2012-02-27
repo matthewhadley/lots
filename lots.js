@@ -123,7 +123,7 @@ function onRequest(request, response) {
     child = exec('grep -H -n -R -I \'#.*!.*^[0-9]\' *', function (err, stdout, stderr) {
         buildTickets(stdout);
         if (findTodos) {
-            child = exec('grep -H -n -R TODO *', function (err, stdout, stderr) {
+            child = exec('grep -H -n -R -I TODO *', function (err, stdout, stderr) {
                 buildTickets(stdout, 'TODO');
                 buildLOTS(response);
             });
