@@ -97,7 +97,13 @@ function onRequest(request, response) {
             priority = entry.match(/\^[0-9]+/)[0].substring(1);
             comment = entry.match(/#.*!/)[0];
             comment = comment.substring(1, comment.length - 1);
-            ticketList[ticketList.length] = new Ticket(ticketList.length, file, line, comment, tag, priority);
+
+            // Only use comments that are less than 1000 chars.
+            // This is to avoid accidentally including things such as minified javascript files
+            // that might contain the pattern match
+            if (comment.length < 1000) {
+                ticketList[ticketList.length] = new Ticket(ticketList.length, file, line, comment, tag, priority);
+            }
         }
 
         // If we're not looking for _"TODO"_s then skip to building the LOTS object
@@ -126,7 +132,10 @@ function onRequest(request, response) {
                 }
                 tagGroup.TODO.push(ticketList.length);
                 comment = match.join('');
-                ticketList[ticketList.length] = new Ticket(ticketList.length, file, line, comment, 'TODO');
+
+                if (comment.length < 1000) {
+                    ticketList[ticketList.length] = new Ticket(ticketList.length, file, line, comment, 'TODO');
+                }
             }
             buildLOTS(response);
         });
@@ -135,11 +144,12 @@ function onRequest(request, response) {
     /*
     ### Create the **LOTS** object
     The found tag groups are looped through and each ticket in the group is added
-    to a tags array.
+    to a tickets array.
     */
     function buildLOTS(response) {
         var LOTS = {};
         LOTS.path = process.cwd();
+        LOTS.tickets = [];
 
         if (ticketList.length > 0) {
             var tags = [], tag;
@@ -147,31 +157,22 @@ function onRequest(request, response) {
             var n = 1;
             // Loop the tag groups.
             for (tag in tagGroup) {
-                currentTag = tags.length;
-                tags[currentTag] = {};
-                tags[currentTag].name = tag;
-                tags[currentTag].tickets = [];
                 // loop the tickets in the tag group.
-                for (i = 0; i < tagGroup[tag].length; i++) {
+                var il = tagGroup[tag].length;
+                for (i = 0; i < il; i++) {
                     currentTicket = ticketList[tagGroup[tag][i]];
                     currentTicket.number = i + 1;
                     currentTicket.order = n++;
-                    // Needed due to logicless mustache templates :-/
-                    if (n % 2 === 1) {
-                        currentTicket.odd = 'odd';
+                    if (i === 0) {
+                        currentTicket.count = il;
                     }
-                    tags[currentTag].tickets.push(currentTicket);
-                    console.log(ticketList[tagGroup[tag][i]]);
+                    LOTS.tickets.push(currentTicket);
                 }
-                tags[currentTag].count = tags[currentTag].tickets.length;
-                // Needed due to logicless mustache templates :-/
-                tags[currentTag].tickets[tags[currentTag].tickets.length - 1].last = 1;
             }
-            LOTS.tags = tags;
             if (ndoccoServer !== undefined) {
                 LOTS.ndoccoServer = ndoccoServer;
             }
-            console.log(LOTS);
+            console.log(LOTS.tickets);
         } else {
             LOTS.empty = 1;
         }
@@ -209,6 +210,7 @@ var findTodos = true;
 if (process.argv[3] !== undefined && process.argv[3] === 'false') {
     findTodos = false;
 }
+
 // Capture the location of a ndocco server to use.
 if (process.argv[4] !== undefined) {
     var ndoccoServer = process.argv[4];

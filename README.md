@@ -5,6 +5,11 @@
 Using twitter style tagging, you can simply add a !tag and a ^priority to comments, and **LOTS** presents these for you in a purty interface.
 **LOTS** can also find any mention of the word _"TODO"_ in your code.
 
+The [source for LOTS](https://github.com/diffsky/LOTS/) is available on GitHub, and released under the MIT license.
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
 ### Installation
 
     $ git clone git://github.com/diffsky/LOTS.git
