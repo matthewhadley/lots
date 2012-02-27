@@ -13,6 +13,9 @@ body {
     color: #333;
     font-family: cambria,georgia,serif;
 }
+h1 span {
+    font-size: 0.7em;
+}
 table {
     width: 100%;
     border-bottom: 2px solid #333;
@@ -87,7 +90,7 @@ h1 {
     <title>LOTS</title>
 </head>
 <body>
-<h1>LOTS for {{path}}</h1>
+<h1>LOTS for <span>{{path}}</span></h1>
 <p class="lots">Little Open Ticket System</p>
 {{#empty}}
 <p>No tags found!</p>
