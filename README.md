@@ -18,7 +18,7 @@ file that was distributed with this source code.
 
 **LOTS** runs on [nodejs](http://nodejs.org/). In a directory you wish to review your code from:
 
-    $ node path/to/LOTS.js <port number> <find todos> <ndocco server>
+    $ path/to/LOTS <port number> <find todos> <ndocco server>
 
 Options:
 
