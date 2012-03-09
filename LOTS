@@ -102,9 +102,8 @@ function onRequest(request, response) {
             match = matches[i].split(":");
             file = match[0];
             line = match[1];
-            delete match[0];
-            delete match[1];
-            entry = match.join('');
+            match.splice(0, 2);
+            entry = match.join(':');
             if (forceTag) {
                 comment = entry;
                 tag = forceTag;
