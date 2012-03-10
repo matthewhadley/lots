@@ -75,13 +75,13 @@ function onRequest(request, response) {
     if (query !== undefined && query.bc !== undefined) {
         grepSystem();
     } else {
-        fs.readFile('LOTS.cache', 'utf-8', function (err, cache){
+        fs.readFile(basePath + 'LOTS.cache', 'utf-8', function (err, cache){
             if (err || cache === '') {
                 grepSystem();
             } else {
                 usingCache = true;
                 console.log('Using cached results');
-                renderLOTS(JSON.parse(cache));
+                renderData(JSON.parse(cache));
             }
         });
     }
@@ -195,13 +195,13 @@ function onRequest(request, response) {
         } else {
             LOTS.empty = 1;
         }
-        renderLOTS(LOTS);
+        renderData(LOTS);
     }
 
     // Render the **LOTS** object in the mustache template and send the response.
     // If we're not serving a cached response then cache the LOTS object to disk for next time
-    function renderLOTS(LOTS) {
-        fs.readFile(lotsPath + 'lots.mustache', function (err, data) {
+    function renderData(LOTS) {
+        fs.readFile(basePath + 'lots.mustache', function (err, data) {
             if (err) {
                 throw err;
             }
@@ -224,7 +224,7 @@ function onRequest(request, response) {
 // Get the location that **LOTS** is running from so that it knows
 // where to include mustache template files.
 // process.argv[1] will contain the path to this file.
-var lotsPath = __dirname + '/';
+var basePath = __dirname + '/';
 
 // Create the **LOTS** server.
 var port = 8888;
