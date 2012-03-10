@@ -210,7 +210,7 @@ function onRequest(request, response) {
             response.end();
             if (! usingCache) {
                 LOTS.cacheDate = new Date().toString();
-                fs.writeFile('LOTS.cache', JSON.stringify(LOTS), function (err) {
+                fs.writeFile(basePath + 'LOTS.cache', JSON.stringify(LOTS), function (err) {
                     if (err) {
                         throw err;
                     }
