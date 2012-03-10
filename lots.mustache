@@ -85,6 +85,15 @@ h1 {
     margin: 0 0 2em 0.2em;
     font-size: 0.7em;
 }
+p.cache {
+    font-size: 0.8em;
+}
+p.cache span {
+    background: #23ADFF;
+    padding: 0.2em;
+    color:#FFF;
+    font-weight:bold;
+}
 /* LOTS framing markup */
 </style>
     <title>LOTS</title>
@@ -95,6 +104,9 @@ h1 {
 {{#empty}}
 <p>No tags found!</p>
 {{/empty}}
+{{#cacheDate}}
+<p class="cache">Using <span>cached</span> results from {{cacheDate}} <a href="?bc">[bust cache]</a></p>
+{{/cacheDate}}
 {{^empty}}
     <table>
         <thead>

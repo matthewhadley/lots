@@ -54,11 +54,36 @@ belong to and the line they occur on. These are the Tickets. Tickets are then gr
 // Handle the page request
 function onRequest(request, response) {
     var ticketList = [],
-        tagGroup = {};
+        tagGroup = {},
+        usingCache = false;
     // Browser will also request a facivon. Don't do anything for for now.
     var requestUrl = url.parse(request.url).pathname;
     if (requestUrl === '/favicon.ico') {
         return;
+    }
+    // Grab any url params
+    var urlParts = url.parse(request.url, true);
+    var query = urlParts.query;
+
+    // Grep actions can take a long time, tell the client to wait
+    response.writeHead(200, {"Content-Type": "text/html"});
+    request.connection.setTimeout(0);
+
+    // Because greps of large directory structures can take some time, the results are cached
+    // If we're using the cache, send it to be rendered by mustache,, otherwise start
+    // grepping the filesystem.
+    if (query !== undefined && query.bc !== undefined) {
+        grepSystem();
+    } else {
+        fs.readFile('LOTS.cache', 'utf-8', function (err, cache){
+            if (err || cache === '') {
+                grepSystem();
+            } else {
+                usingCache = true;
+                console.log('Using cached results');
+                renderLOTS(JSON.parse(cache));
+            }
+        });
     }
 
     // ### Record a grep match as a new ticket
@@ -121,17 +146,19 @@ function onRequest(request, response) {
     // ### Grep the filsystem for strings to build tickets from
     // Grep the file system for tags and, optionally, for _"TODO"_s (which are then assigned the _TODO_ tag).
     // Then build a **LOTS** object from the tickets.
-    child = exec('grep -H -n -R -I \'#.*!.*^[0-9]\' *', function (err, stdout, stderr) {
-        buildTickets(stdout);
-        if (findTodos) {
-            child = exec('grep -H -n -R -I TODO *', function (err, stdout, stderr) {
-                buildTickets(stdout, 'TODO');
+    function grepSystem() {
+        child = exec('grep -H -n -R -I \'#.*!.*^[0-9]\' *', function (err, stdout, stderr) {
+            buildTickets(stdout);
+            if (findTodos) {
+                child = exec('grep -H -n -R -I TODO *', function (err, stdout, stderr) {
+                    buildTickets(stdout, 'TODO');
+                    buildLOTS(response);
+                });
+            } else {
                 buildLOTS(response);
-            });
-        } else {
-            buildLOTS(response);
-        }
-    });
+            }
+        });
+    }
 
     /*
     ### Create the **LOTS** object
@@ -168,16 +195,27 @@ function onRequest(request, response) {
         } else {
             LOTS.empty = 1;
         }
+        renderLOTS(LOTS);
+    }
 
-        // Render the **LOTS** object in the mustache template and send the response.
+    // Render the **LOTS** object in the mustache template and send the response.
+    // If we're not serving a cached response then cache the LOTS object to disk for next time
+    function renderLOTS(LOTS) {
         fs.readFile(lotsPath + 'lots.mustache', function (err, data) {
             if (err) {
                 throw err;
             }
             var output = Mustache.render(data.toString(), LOTS);
-            response.writeHead(200, {"Content-Type": "text/html"});
             response.write(output);
             response.end();
+            if (! usingCache) {
+                LOTS.cacheDate = new Date().toString();
+                fs.writeFile('LOTS.cache', JSON.stringify(LOTS), function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                });
+            }
         });
     }
 }
