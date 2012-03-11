@@ -203,7 +203,7 @@ function onRequest(request, response) {
         } else {
             LOTS.empty = 1;
         }
-        LOTS.generationTime = Date.now() - startTime;
+        LOTS.generationTime = ((Date.now() - startTime) / 1000);
         renderData(LOTS);
     }
 
