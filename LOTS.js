@@ -23,6 +23,7 @@ var path = require('path'),
     util = require('util'),
     exec = require('child_process').exec,
     child,
+    crypto = require('crypto');
     Mustache = require('./mustache.js');
 
 // Object factory for ticket details
@@ -72,10 +73,14 @@ function onRequest(request, response) {
     // Because greps of large directory structures can take some time, the results are cached
     // If we're using the cache, send it to be rendered by mustache,, otherwise start
     // grepping the filesystem.
+    var md5sum = crypto.createHash('md5');
+    md5sum.update(process.cwd());
+    var cacheKey = md5sum.digest('hex');
+    var cacheFile = basePath + 'cache/' + cacheKey;
     if (query !== undefined && query.bc !== undefined) {
         grepSystem();
     } else {
-        fs.readFile(basePath + 'LOTS.cache', 'utf-8', function (err, cache){
+        fs.readFile(cacheFile, 'utf-8', function (err, cache){
             if (err || cache === '') {
                 grepSystem();
             } else {
@@ -146,8 +151,9 @@ function onRequest(request, response) {
     // ### Grep the filsystem for strings to build tickets from
     // Grep the file system for tags and, optionally, for _"TODO"_s (which are then assigned the _TODO_ tag).
     // Then build a **LOTS** object from the tickets.
+    // The search is a series of piped greps which improves performance over doing it in a single grep
     function grepSystem() {
-        child = exec('grep -H -n -R -I \'#.*!.*^[0-9]\' *', function (err, stdout, stderr) {
+        child = exec('grep -H -n -R -I "#" * | grep "\!" | grep "\^[0-9]"', function (err, stdout, stderr) {
             buildTickets(stdout);
             if (findTodos) {
                 child = exec('grep -H -n -R -I TODO *', function (err, stdout, stderr) {
@@ -210,7 +216,7 @@ function onRequest(request, response) {
             response.end();
             if (! usingCache) {
                 LOTS.cacheDate = new Date().toString();
-                fs.writeFile(basePath + 'LOTS.cache', JSON.stringify(LOTS), function (err) {
+                fs.writeFile(cacheFile, JSON.stringify(LOTS), function (err) {
                     if (err) {
                         throw err;
                     }
