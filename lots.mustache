@@ -104,9 +104,11 @@ p.cache span {
 {{#empty}}
 <p>No tags found!</p>
 {{/empty}}
-{{#cacheDate}}
-<p class="cache">Using <span>cached</span> results from {{cacheDate}} <a href="?bc">[bust cache]</a></p>
-{{/cacheDate}}
+<p class="cache">
+    {{#cacheDate}}
+    Using <span>cached</span> results from {{cacheDate}} <a href="?bc">[bust cache]</a>{{/cacheDate}}
+     (results generated in {{generationTime}} milliseconds)
+</p>
 {{^empty}}
     <table>
         <thead>

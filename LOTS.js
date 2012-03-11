@@ -56,7 +56,9 @@ belong to and the line they occur on. These are the Tickets. Tickets are then gr
 function onRequest(request, response) {
     var ticketList = [],
         tagGroup = {},
-        usingCache = false;
+        usingCache = false,
+        startTime = Date.now();
+
     // Browser will also request a facivon. Don't do anything for for now.
     var requestUrl = url.parse(request.url).pathname;
     if (requestUrl === '/favicon.ico') {
@@ -201,6 +203,7 @@ function onRequest(request, response) {
         } else {
             LOTS.empty = 1;
         }
+        LOTS.generationTime = Date.now() - startTime;
         renderData(LOTS);
     }
 
