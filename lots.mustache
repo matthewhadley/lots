@@ -106,8 +106,8 @@ p.cache span {
 {{/empty}}
 <p class="cache">
     {{#cacheDate}}
-    Using <span>cached</span> results from {{cacheDate}} <a href="?bc">[bust cache]</a>{{/cacheDate}}
-     (page generated in {{generationTime}} seconds)
+    Using <span>cached</span> page from {{cacheDate}} <a href="?bc">[bust cache]</a>{{/cacheDate}}
+     (page generated in {{generationTime}} seconds){{^cacheDate}} <a href="/">[use cached]</a>{{/cacheDate}}
 </p>
 {{^empty}}
     <table>
