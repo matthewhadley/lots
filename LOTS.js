@@ -155,7 +155,7 @@ function onRequest(request, response) {
     // Then build a **LOTS** object from the tickets.
     // The search is a series of piped greps which improves performance over doing it in a single grep
     function grepSystem() {
-        child = exec('grep -H -n -R -I "#" * | grep "\!" | grep "\^[0-9]"', function (err, stdout, stderr) {
+        child = exec('grep -H -n -R -I "#" * | grep "\\!" | grep "\\^[0-9]"', function (err, stdout, stderr) {
             buildTickets(stdout);
             if (findTodos) {
                 child = exec('grep -H -n -R -I TODO *', function (err, stdout, stderr) {
