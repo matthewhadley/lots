@@ -1,4 +1,4 @@
-# Little Open Ticket System (LOTS)
+# Little Open Ticket System [![](https://travis-ci.org/diffsky/LOTS.png)](https://travis-ci.org/diffsky/LOTS)
 
 **LOTS** is a simple ticketing system for code. Using twitter style tagging, you can add a `#comment` with a `!tag` and a `^priority`. These are then presented in a web interface. **LOTS** can optionally just find any mention of the word _"TODO"_ in your code.
 
