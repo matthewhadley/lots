@@ -1,15 +1,16 @@
 var assert = require('chai').assert;
 var LOTS = require('../../lib/lots');
 var path = require('path');
+var mkdirp = require('mkdirp');
 
 var config = {
   todos: true,
-  cache: '/tmp/LOTS',
+  cache: path.join(process.cwd(), 'test', 'tmp'),
   directory: path.join(process.cwd(), 'test', 'data'),
   exclude: ''
 };
 
-console.log(config.directory);
+mkdirp.sync(config.cache);
 
 var expected = { tickets:
    [ { id: 0,
