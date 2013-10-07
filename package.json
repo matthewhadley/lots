@@ -28,5 +28,27 @@
     "grunt-contrib-jshint": "~0.3.0",
     "grunt-mocha-test": "~0.2.0",
     "grunt-shell": "~0.2.1"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/diffsky/LOTS.git"
+  },
+  "keywords": [
+    "LOTS",
+    "little",
+    "open",
+    "ticket",
+    "system",
+    "tag",
+    "tickets",
+    "bang"
+  ],
+  "author": "Matthew Hadley <matthew.hadley@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/diffsky/LOTS/issues"
   }
 }
