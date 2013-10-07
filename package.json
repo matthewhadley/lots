@@ -1,5 +1,5 @@
 {
-  "name": "LOTS",
+  "name": "lots",
   "description": "Little Open Ticket System. View todos and tags in a codebase.",
   "version": "0.0.1",
   "main": "app.js",
