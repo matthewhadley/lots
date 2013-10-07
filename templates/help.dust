@@ -1,0 +1,6 @@
+{>"layout"/}
+{<main}
+<div id="help">
+{content|s}
+</div>
+{/main}

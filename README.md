@@ -1,39 +1,29 @@
 # Little Open Ticket System (LOTS)
 
-**LOTS** is a simple ticketing system for code inspired by [BANG](http://www.thecodebase.com/bang/).
-
-Using twitter style tagging, you can simply add a !tag and a ^priority to comments, and **LOTS** presents these for you in a purty interface.
-**LOTS** can also find any mention of the word _"TODO"_ in your code.
-
-The [source for LOTS](https://github.com/diffsky/LOTS/) is available on GitHub, and released under the MIT license.
-
-For the full copyright and license information, please view the LICENSE
-file that was distributed with this source code.
-
-### Installation
-
-    $ git clone git://github.com/diffsky/LOTS.git
-
-### Usage
-
-**LOTS** runs on [nodejs](http://nodejs.org/). In a directory you wish to review your code from:
-
-    $ path/to/LOTS.js <port number> <find todos> <ndocco server>
-
-Options:
-
-   * `port number` - port for **LOTS** to run its server on
-   * `find todos` - by default, **LOTS** will search for "TODO" in your code, pass `false` to disable
-   * `ndocco server` - location of a running [ndocco](https://github.com/diffsky/ndocco) server (for example, `localhost:8888`)
-
-If a `ndocco server` location is passed then file links in the **LOTS** report will point to their ndocco output.
+**LOTS** is a simple ticketing system for code. Using twitter style tagging, you can add a `#comment` with a `!tag` and a `^priority`. These are then presented in a web interface. **LOTS** can optionally just find any mention of the word _"TODO"_ in your code.
 
 Here is an example of a snippet that would be picked up by **LOTS**:
 
     # This readme should be improved !documentation ^2
 
-### Hat Tip
+### Installation
 
-**LOTS** makes use of:
+Install lots globally via npm:
 
-   * [mustache](https://github.com/janl/mustache.js)
+    $ [sudo] npm i -g lots
+
+
+### Usage
+
+In a directory you wish to review your code from, run:
+
+    $ LOTS
+
+Then visit `http://localhost:5000/` to see the report.
+
+See `LOTS -h` for more options
+
+
+---
+
+LOTS was inspired by [BANG](http://www.thecodebase.com/bang/), which now seems defunkt.

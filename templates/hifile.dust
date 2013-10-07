@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <title>LOTS {file}</title>
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/hifile.css"/>
+</head>
+<body>
+{hifile|s}
+<script src="/js/main.js"></script>
+</body>
+</html>
