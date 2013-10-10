@@ -6,6 +6,12 @@ Here is an example of a snippet that would be picked up by **LOTS**:
 
     # This readme should be improved !documentation ^2
 
+### Screenshots
+
+![ticket view](https://raw.github.com/wiki/diffsky/LOTS/LOTS_tickets.png)
+
+![file view](https://raw.github.com/wiki/diffsky/LOTS/LOTS_file.png)
+
 ### Installation
 
 Install lots globally via npm:
