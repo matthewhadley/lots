@@ -25,6 +25,7 @@ Install lots globally via npm:
 
     $ [sudo] npm i -g lots
 
+LOTS source code is [available on github](https://github.com/diffsky/LOTS)
 
 ### Usage
 
