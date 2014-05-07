@@ -3,22 +3,18 @@
 <head>
   <meta charset="utf-8">
   <link rel="shortcut icon" href="/favicon.ico">
-  <title>LOTS {basename}{@if cond="('{total.tickets}' > 0)"} ({total.tickets}){/if}</title>
+  <title>LOTS<% if(lots) { %> <%= lots.basename %> <%= lots.total.tickets %> tickets<% } %></title>
   <link rel="stylesheet" type="text/css" href="/css/normalize.css"/>
   <link rel="stylesheet" type="text/css" href="/css/lots.css"/>
 </head>
 <body>
 <div id="menu">
-<h1><a href="/">LOTS</a><span>{basename}</span></h1>
+<h1><a href="/">LOTS</a><% if(lots) { %><span><% lots.basename %></span><% } %></h1>
 <p class="logo"><a href="/">Little Open Ticket System</a> <span><a href="/help">[help]</a></span></p>
 <div class="meta">
-{+meta}
-{/meta}
+<% if (lots) { %>
+<% include meta %>
+<% } %>
 </div>
 </div>
 <div id="container">
-{+main}
-{/main}
-</div>
-</body>
-</html>

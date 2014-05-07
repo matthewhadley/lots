@@ -11,13 +11,15 @@
     "LOTS": "bin/LOTS"
   },
   "dependencies": {
-    "hoffman": "~0.1.1",
-    "hifile": "~0.0.3",
     "commander": "~2.0.0",
     "express": "~3.4.0",
     "mkdirp": "~0.3.5",
     "marked": "~0.2.9",
-    "moment": "~2.3.0"
+    "moment": "^2.3.1",
+    "hapi": "^4.1.0",
+    "cli-color": "^0.3.2",
+    "ejs": "^1.0.0",
+    "hifile": "^1.0.1"
   },
   "devDependencies": {
     "chai": "~0.1.5",

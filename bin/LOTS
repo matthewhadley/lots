@@ -2,8 +2,7 @@
 
 var program = require('commander');
 var mkdirp = require('mkdirp');
-var lots = require('..');
-var http = require('http');
+var server = require('../server');
 var path = require('path');
 var LOTS = require('../lib/lots');
 
@@ -14,7 +13,6 @@ program
   .option('-c, --cache [cache]', 'directory to use for filesystem cache, defaults to /tmp/LOTS')
   .option('-d, --directory [directory]', 'directory to start LOTS, defaults to pwd')
   .option('-t, --todos', 'whether to search code for TODOs');
-
 
 program.on('--help', function(){
   console.log('  LOTS server');
@@ -46,39 +44,17 @@ if(config.ignore) {
 }
 mkdirp.sync(config.cache);
 
-var app = lots(config);
+server(config);
 
-app.locals.config = {};
-app.locals.config.todos = config.todos;
-app.locals.config.exclude = config.exclude;
-app.locals.config.cache = config.cache;
-app.locals.config.directory = config.directory;
 
-var maxAttempts = 10;
-var attempt = 0;
 
-function start(port) {
-  attempt += 1;
-  app.set('port', port);
-  module.exports = http.createServer(app).listen(port, function(){
-    console.log("LOTS started on port", port);
-  });
-}
+// app.locals.config = {};
+// app.locals.config.todos = config.todos;
+// app.locals.config.exclude = config.exclude;
+// app.locals.config.cache = config.cache;
+// app.locals.config.directory = config.directory;
 
-process.on('uncaughtException', function(err) {
-  if (err.errno === 'EADDRINUSE') {
-    if (config.port > 1024 && attempt < maxAttempts) {
-      if (attempt === 1) {
-        console.log('warn: port', config.port, 'not available');
-      }
-      start(++config.port);
-    } else {
-      console.warn('fatal: port', config.port, 'not available');
-    }
-  }
-});
 
-start(config.port);
 
 var lots = LOTS(config);
 lots.generate(function(err) {

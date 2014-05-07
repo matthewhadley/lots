@@ -1,0 +1,32 @@
+<% include header %>
+
+<% if(!lots.tags) { %><p>No tags found!</p><% } %>
+<div class="lots">
+  <table>
+    <thead>
+      <tr>
+        <td>Tag</td>
+        <td class="id">id#</td>
+        <td>Comment</td>
+        <td class="fileHeader">File</td>
+        <td>Line</td>
+        <td class="priorityHead">Priority</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% lots.tickets.forEach(function(ticket){ %>
+      <tr <% if(ticket.count) { %>class="tagGroup"<% } %>>
+        <% if(ticket.count) { %>
+        <td class="tag" rowspan="<%= ticket.count %>"><h2><%= ticket.tag %></h2></td>
+        <% } %>
+        <td class="order"><a href="/view/<%= lots.basename %>/<%= ticket.file %>#L<%= ticket.line %>" class="hifile"><%= ticket.order %></a></td>
+        <td class="comment"><a href="/view/<%= lots.basename %>/<%= ticket.file %>#L<%= ticket.line %>" class="hifile"><%= ticket.comment %></a></td>
+        <td class="file"><a href="/view/<%= lots.basename %>/<%= ticket.file %>#L<%= ticket.line %>" class="hifile"><%= ticket.file %></a></td>
+        <td class="line"><a href="/view/<%= lots.basename %>/<%= ticket.file %>#L<%= ticket.line %>" class="hifile"><%= ticket.line %></a></td>
+        <td class="priority p<%= ticket.priority %>"><a href="/view/<%= lots.basename %>/<%= ticket.file %>#L<%= ticket.line %>" class="hifile"><% if(ticket.priority){ %><%= ticket.priority %><% } else { %><span class="pnone">none</span><% } %></a></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<% include footer %>

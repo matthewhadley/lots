@@ -36,16 +36,3 @@ exports.hifile = function(req, res){
   });
 };
 
-exports.help = function(req, res){
-  if(helpMarkup){
-    res.render('help', {content: helpMarkup});
-  } else {
-    fs.readFile(path.join(__dirname, '../README.md'), 'utf8', function(err, data){
-      data = data.split('\n');
-      data.shift();
-      data = data.join('\n');
-      helpMarkup = marked(data);
-      res.render('help', {content: helpMarkup});
-    });
-  }
-};
