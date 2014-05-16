@@ -37,8 +37,3 @@ In a directory you wish to review your code from, run:
 Then visit `http://localhost:5000/` to see the report.
 
 See `LOTS -h` for more options
-
-
----
-
-LOTS was inspired by [BANG](http://www.thecodebase.com/bang/), which now seems defunkt.
