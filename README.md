@@ -41,4 +41,4 @@ See `LOTS -h` for more options
 
 ---
 
-Ticket logo designed by [NAS](http://thenounproject.com/nas.ztu) from the [Noun Project](http://thenounproject.com/) :: Creative Commons – Attribution (CC BY 3.0)
+LOTS logo designed by [NAS](http://thenounproject.com/nas.ztu) from the [Noun Project](http://thenounproject.com/) :: Creative Commons – Attribution (CC BY 3.0)
