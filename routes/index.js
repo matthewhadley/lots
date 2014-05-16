@@ -1,38 +1,35 @@
-var fs = require('fs');
-var path = require('path');
-var hifile = require('hifile');
-var LOTS = require('../lib/lots');
-var marked = require('marked');
-var helpMarkup;
+var lots = require('../handlers/lots');
+var help = require('../handlers/help');
+var hifile = require('../handlers/hifile');
 
-exports.cache = function(req, res) {
-  var lots = LOTS(req.app.locals.config);
-  lots.cached(function(err, data){
-    if(!data){
-      lots.generate(function(err, data) {
-        res.render('lots', data);
-      });
-    } else {
-      res.render('lots', data);
+module.exports = [
+  { method: 'GET', path: '/favicon.ico', handler: { file: './public/img/lots.png' } },
+  {
+    method: 'GET',
+    path: '/',
+    config: {
+      handler: lots.cache
     }
-  });
-};
-
-exports.lots = function(req, res){
-  var lots = LOTS(req.app.locals.config);
-  lots.generate(function(err, data) {
-    res.render('lots', data);
-    lots.log();
-  });
-};
-
-exports.hifile = function(req, res){
-  var file = req.params[0].split('/');
-  file.shift();
-  file = file.join('/');
-  fs.readFile(path.join(req.app.locals.config.directory, file), 'utf8', function(err, data){
-    var code = hifile(data, path.extname(file).substring(1));
-    res.render('hifile', {file: req.params[0], hifile: code});
-  });
-};
-
+  },
+  {
+    method: 'GET',
+    path: '/lots',
+    config: {
+      handler: lots.generate
+    }
+  },
+  {
+    method: 'GET',
+    path: '/help',
+    config: {
+      handler: help.page
+    }
+  },
+  {
+    method: 'GET',
+    path: '/view/{file*}',
+    config: {
+      handler: hifile.view
+    }
+  }
+];

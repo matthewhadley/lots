@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(grunt) {
 
   grunt.initConfig({
@@ -18,7 +20,7 @@ module.exports = function(grunt) {
       }
     },
     shell: {
-      "mocha-istanbul": {
+      'mocha-istanbul': {
         command: 'node_modules/istanbul/lib/cli.js cover -- node_modules/mocha/bin/_mocha test/unit/lots.js --colors --reporter spec',
         options: {
             stdout: true,

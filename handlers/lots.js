@@ -5,12 +5,13 @@ var LOTS = require('../lib/lots');
 exports.cache = function(request, reply) {
   var lots = LOTS(request.server.settings.app);
   lots.cached(function(err, data){
-    if(!data){
+    if(data){
+      data.cached = true;
+      reply.view('lots', {lots: data});
+    } else {
       lots.generate(function(err, data) {
         reply.view('lots', {lots: data});
       });
-    } else {
-      reply.view('lots', {lots: data});
     }
   });
 };

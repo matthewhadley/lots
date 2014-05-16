@@ -14,15 +14,21 @@ h1 span {
 h1 {
   font-size:2em;
   color:#333;
-  padding-left: 20px;
-  background: url('/img/blanklots.png') no-repeat 5px 5px;
-  background-size: 16px 16px;
+  padding-left: 36px;
+  /*
+    Creative Commons – Attribution (CC BY 3.0)
+    Bill designed by NAS from the Noun Project
+    http://thenounproject.com/term/receipt/31423/
+    http://thenounproject.com/nas.ztu
+  */
+  background: url('/img/lots.png') no-repeat 2px 0px;
+  background-size: 36px 36px;
   font-family: cambria,georgia,serif;
   margin: 0;
 }
 
 .logo {
-  margin: 0 0 1em 0.2em;
+  margin: 0 0 1em 0.4em;
   font-size: 0.7em;
 }
 
@@ -151,6 +157,7 @@ a {
     font-weight: bold;
 }
 .lots span.pnone { visibility: hidden;}
+.lots tr td.p0 { background: #FF0000; }
 .lots tr td.p1 { background: #FF0000; }
 .lots tr td.p2 { background: #FF3F07; }
 .lots tr td.p3 { background: #FF8000; }

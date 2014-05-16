@@ -15,14 +15,5 @@
   "undef":        true,
   "unused":       "vars",
   "maxlen":       200,
-  "predef": [
-    "it",
-    "describe",
-    "before",
-    "after",
-    "define",
-    "require",
-    "angular",
-    "$"
-  ]
+  "predef":       []
 }

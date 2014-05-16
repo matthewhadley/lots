@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+'use strict';
 
 var program = require('commander');
 var mkdirp = require('mkdirp');
@@ -45,16 +46,6 @@ if(config.ignore) {
 mkdirp.sync(config.cache);
 
 server(config);
-
-
-
-// app.locals.config = {};
-// app.locals.config.todos = config.todos;
-// app.locals.config.exclude = config.exclude;
-// app.locals.config.cache = config.cache;
-// app.locals.config.directory = config.directory;
-
-
 
 var lots = LOTS(config);
 lots.generate(function(err) {

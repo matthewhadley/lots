@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <link rel="shortcut icon" href="/favicon.ico">
-  <!-- ! replace with i18n fns #i18n ^2 -->
+  <!-- ! replace with i18n fns #i18n ^4 -->
   <title>LOTS<% if(lots) { %> <%= lots.basename %> <%= lots.total.tickets %> tickets<% } %></title>
   <link rel="stylesheet" type="text/css" href="/css/normalize.css"/>
   <link rel="stylesheet" type="text/css" href="/css/lots.css"/>
 </head>
 <body>
 <div id="menu">
-<h1><a href="/">LOTS</a><% if(lots) { %><span><% lots.basename %></span><% } %></h1>
+<h1><a href="/">LOTS</a><% if(lots) { %><span><%= lots.basename %></span><% } %></h1>
 <p class="logo"><a href="/">Little Open Ticket System</a> <span><a href="/help">[help]</a></span></p>
 <div class="meta">
 <% if (lots) { %>
