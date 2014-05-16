@@ -14,11 +14,11 @@ Here is an example of a snippet that would be picked up by **LOTS**:
 
 #### Tickets
 
-![ticket view](https://raw.github.com/wiki/diffsky/LOTS/LOTS_tickets.png)
+![ticket view](https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/tickets.png)
 
 #### File Viewer
 
-![file view](https://raw.github.com/wiki/diffsky/LOTS/LOTS_file.png)
+![file view](https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/file.png)
 
 ### Installation
 
