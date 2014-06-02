@@ -1,4 +1,4 @@
-# Little Open Ticket System [![](https://travis-ci.org/diffsky/LOTS.png)](https://travis-ci.org/diffsky/LOTS)
+# Little Open Ticket System [![](https://travis-ci.org/diffsky/LOTS.svg)](https://travis-ci.org/diffsky/LOTS)
 
 **LOTS** is a simple ticketing system for code.
 
