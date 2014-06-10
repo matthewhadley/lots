@@ -9,7 +9,7 @@ var path = require('path');
 var LOTS = require('../lib/lots');
 var port = 5000;
 var defaultIgnores = [
-  'node_modules',
+  'node_modules'
 ];
 
 function ignore(val, memo) {
