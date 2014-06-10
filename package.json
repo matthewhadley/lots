@@ -1,11 +1,11 @@
 {
   "name": "lots",
   "description": "Little Open Ticket System. View todos and tags in a codebase.",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "main": "app.js",
   "scripts": {
     "start": "./bin/LOTS",
-    "test": "grunt test"
+    "test": "./node_modules/gulp/bin/gulp.js lint && node test"
   },
   "bin": {
     "LOTS": "bin/LOTS"
@@ -15,20 +15,19 @@
     "mkdirp": "~0.3.5",
     "marked": "~0.2.9",
     "moment": "^2.3.1",
-    "hapi": "^4.1.0",
-    "cli-color": "^0.3.2",
     "ejs": "^1.0.0",
-    "hifile": "^1.0.1"
+    "hifile": "^1.0.1",
+    "hapi": "^5.1.0",
+    "chalk": "^0.4.0"
   },
   "devDependencies": {
-    "chai": "~0.1.5",
-    "istanbul": "~0.1.32",
-    "mocha": "~1.8.2",
-    "grunt": "~0.4.0",
-    "grunt-cli": "~0.1.6",
-    "grunt-contrib-jshint": "~0.3.0",
-    "grunt-mocha-test": "~0.2.0",
-    "grunt-shell": "~0.2.1"
+    "tape": "^2.12.3",
+    "gulp": "^3.6.2",
+    "minimist": "^0.1.0",
+    "gulp-jsbeautifier": "0.0.2",
+    "gulp-diff": "^0.1.4",
+    "confidence": "^0.12.1",
+    "gulp-eslint": "^0.1.7"
   },
   "directories": {
     "test": "test"

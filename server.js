@@ -1,12 +1,12 @@
 'use strict';
 
 var Hapi = require('hapi');
-var clc = require('cli-color');
+var chalk = require('chalk');
 var ejs = require('./lib/ejs');
 var moment = require('moment');
 var path = require('path');
 
-module.exports = function init(config){
+module.exports = function init(config) {
   // server config
   var server = new Hapi.Server('localhost', config.port, {
     cors: true,
@@ -27,21 +27,21 @@ module.exports = function init(config){
   server.settings.app = config;
 
   // logging
-  server.on('request', function (request, event) {
+  server.on('request', function(request, event) {
     var statics = ['css', 'img', 'js'];
     var log = true;
     if (event.data && event.data.url) {
       if (event.data.url === '/favicon.ico') {
         return;
       }
-      for(var i = 0, il = statics.length; i < il; i++){
-        if(event.data.url.substr(1, statics[i].length) === statics[i]){
+      for (var i = 0, il = statics.length; i < il; i++) {
+        if (event.data.url.substr(1, statics[i].length) === statics[i]) {
           log = false;
           break;
         }
       }
-      if(log) {
-        console.log(clc.cyan('[LOTS] ' + moment().format('YYYY-MM-DD HH:mm:ss') + ' ' + event.data.url));
+      if (log) {
+        console.log(chalk.blue('[LOTS] ' + moment().format('YYYY-MM-DD HH:mm:ss') + ' ' + event.data.url));
       }
     }
   });
@@ -53,5 +53,5 @@ module.exports = function init(config){
 
   server.start();
 
-  console.log(clc.cyan('[page] server started on port', config.port));
+  console.log(chalk.blue('[LOTS] server started on port', config.port));
 };

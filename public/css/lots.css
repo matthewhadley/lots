@@ -59,11 +59,14 @@ span.summary {
   line-height: 1.5em;
 }
 
-#help  code {
+#help code {
   background: #F1F1F1;
   padding: 2px;
 }
 
+#help img {
+  max-width: 780px;
+}
 
 .lots a.hifile {
   display: block;

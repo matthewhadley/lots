@@ -12,7 +12,7 @@ module.exports = function(grunt) {
     mochaTest: {
       files: ['test/unit/stub.js']
     },
-    mochaTestConfig : {
+    mochaTestConfig: {
       options: {
         ignoreLeaks: false,
         ui: 'bdd',
@@ -23,8 +23,8 @@ module.exports = function(grunt) {
       'mocha-istanbul': {
         command: 'node_modules/istanbul/lib/cli.js cover -- node_modules/mocha/bin/_mocha test/unit/lots.js --colors --reporter spec',
         options: {
-            stdout: true,
-            stderr: true
+          stdout: true,
+          stderr: true
         }
       }
     }

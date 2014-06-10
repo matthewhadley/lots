@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(request, reply){
+module.exports = function(request, reply) {
   // pre-populate view context
   // http://blog.cedric-ziel.com/articles/manipulating-hapijs-view-context/
   var response = request.response;

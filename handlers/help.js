@@ -1,3 +1,5 @@
+'use strict';
+
 var fs = require('fs');
 var path = require('path');
 var marked = require('marked');
@@ -9,6 +11,8 @@ data.shift();
 data = data.join('\n');
 var content = marked(data);
 
-exports.page = function(request, reply){
-  reply.view('help', {content: content});
+exports.page = function(request, reply) {
+  reply.view('help', {
+    content: content
+  });
 };
