@@ -6,7 +6,7 @@ var diffReporter = require('gulp-diff').reporter;
 
 module.exports = function(gulp, conf) {
   gulp.task('js-beautify', function() {
-    var task = gulp.src(conf.build.get('/lint'))
+    var task = gulp.src(conf.build.get('/lint'), {base: './'})
       .pipe(prettify({
         config: '.jsbeautifyrc',
         mode: 'VERIFY_AND_WRITE'
@@ -15,7 +15,7 @@ module.exports = function(gulp, conf) {
       .pipe(diffReporter());
     if (conf.args.write) {
       // if task is run with `--write` then overwrite source files
-      task.pipe(gulp.dest('.'));
+      task.pipe(gulp.dest('./'));
     } else {
       task.on('data', function(data) {
         if (data.diff && Object.keys(data.diff).length) {

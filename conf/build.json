@@ -2,6 +2,7 @@
   "lint": [
     "!node_modules/**/*.js",
     "!public/**/*.js",
+    "bin/LOTS",
     "**/*.js"
   ],
   "clean": "test/tmp"
