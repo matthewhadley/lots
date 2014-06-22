@@ -1,0 +1,54 @@
+/* for fullpage view, master stylesheet shoule have body margin set to 0 */
+/* body {margin: 0} */
+
+.hifile{
+  font-family: monospace, serif;
+  font-size: 14px;
+  position:relative;
+  margin: 0;
+}
+
+.hifile #col {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width:48px;
+  text-align:right;
+  background-color: #E7E7E7;
+  cursor: pointer;
+}
+
+.hifile #code {
+  margin-left:48px;
+  overflow:auto;
+}
+
+.hifile .cl {
+  height: 14px;
+  padding: 3px 2px 3px 6px;
+  line-height: 0.9;
+  white-space: pre;
+  display:block;
+}
+
+.hifile .hl{
+  background-color: #FCF082;
+}
+
+.hifile .hl.ln{
+  background-color: #EEE37D;
+}
+
+.hifile .ln {
+  line-height: 0.9;
+  font-family: monospace, serif;
+}
+
+.hifile .ln a {
+  outline: 0;
+  color: #999;
+  text-decoration:none;
+  height: 14px;
+  padding: 3px 6px 3px 10px;
+  display:inline-block;
+}

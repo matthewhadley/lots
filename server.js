@@ -10,9 +10,6 @@ module.exports = function init(config) {
   // server config
   var server = new Hapi.Server('localhost', config.port, {
     cors: true,
-    debug: {
-      request: ['error']
-    },
     views: {
       isCached: false,
       path: path.join(__dirname, 'templates'),
