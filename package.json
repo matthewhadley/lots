@@ -4,6 +4,7 @@
   "version": "0.3.4",
   "main": "app.js",
   "scripts": {
+    "prepublish": "cp -r node_modules/hifile/assets/css/* public/css/hifile;cp -r node_modules/hifile/assets/js/* public/js/hifile",
     "start": "./bin/LOTS",
     "test": "./node_modules/gulp/bin/gulp.js lint && node test"
   },
