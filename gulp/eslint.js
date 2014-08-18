@@ -7,10 +7,10 @@ module.exports = function(gulp, conf) {
     return gulp.src(conf.build.get('/lint'))
       .pipe(eslint())
       .pipe(eslint.format())
-      .pipe(eslint.failOnError())
-      .on('error', function() {
-        // record that there have been errors
-        gulp.fail = true;
+      .on('data', function(file) {
+        if (file.eslint.messages && file.eslint.messages.length) {
+          gulp.fail = true;
+        }
       });
   });
 };

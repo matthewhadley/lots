@@ -1,11 +1,12 @@
 {
   "name": "lots",
   "description": "Little Open Ticket System. View todos and tags in a codebase.",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "main": "app.js",
   "scripts": {
     "prepublish": "cp -r node_modules/hifile/assets/css/* public/css/hifile;cp -r node_modules/hifile/assets/js/* public/js/hifile",
     "start": "./bin/LOTS",
+    "beautify": "node_modules/gulp/bin/gulp.js beautify --write",
     "test": "./node_modules/gulp/bin/gulp.js lint && node test"
   },
   "bin": {
