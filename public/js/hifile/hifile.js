@@ -1,43 +1,49 @@
-/* usage: attach hifile.init() to winow onload event */
 (function(){
   'use strict';
   var curhl = {};
+
   var hifile = {
-    init : function() {
+    init: function() {
       var hl;
       hl = window.location.hash.substring(2);
-      if(hl) {
+      if (hl) {
         hifile.highlight(hl);
       }
       document.getElementById('col').addEventListener('click', hifile.update);
     },
-    highlight : function(hl){
+    highlight: function(hl){
       var col = document.getElementById('L' + hl);
       var line = document.getElementById('H' + hl);
-      if(col) {
+      // remove any existing highlight
+      if (curhl.col) {
+        curhl.col.className = 'ln';
+        curhl.line.className = 'cl';
+      }
+      // add highlight to new row
+      if (col) {
         col.className += ' hl';
         line.className += ' hl';
         curhl.col = col;
         curhl.line = line;
       }
     },
-    update : function (e) {
+    hash: function(e) {
+      // get the line from the hash change (for example, from browser back navigation)
+      hifile.highlight(e.newURL.split('#')[1].substr(1));
+    },
+    update: function (e) {
       var hash, hl;
       e.preventDefault();
-      if(curhl.col) {
-        curhl.col.className = 'ln';
-        curhl.line.className = 'cl';
-      }
       hl = e.target.innerText;
       hifile.highlight(hl);
-      hash = '#L'+hl;
-      if(history.pushState) {
+      hash = '#L' + hl;
+      if (history.pushState) {
         history.pushState(null, null, hash);
-      }
-      else {
+      } else {
         location.hash = hash;
       }
     }
   };
   document.addEventListener('DOMContentLoaded', hifile.init);
+  window.addEventListener('hashchange', hifile.hash);
 })();
