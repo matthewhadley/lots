@@ -6,7 +6,11 @@ var diffReporter = require('gulp-diff').reporter;
 
 module.exports = function(gulp, conf) {
   gulp.task('beautify', function() {
-    var task = gulp.src(conf.build.get('/lint'), {
+    var task = gulp.src([
+        '!node_modules/**/*.js',
+        '!public/**/*.js',
+        '**/*.js'
+      ], {
         base: './'
       })
       .pipe(prettify({

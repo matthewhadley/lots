@@ -8,7 +8,8 @@
     "no-global-strict": 0,
     "consistent-return": 0,
     "camelcase": 0,
-    "new-cap": 0
+    "new-cap": 0,
+    "no-shadow": 1
   },
   "globals": {
     "it": true,

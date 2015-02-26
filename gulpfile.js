@@ -4,9 +4,8 @@
 var gulp = require('gulp');
 var path = require('path');
 var parseArgs = require('minimist');
-var Confidence = require('confidence');
+
 var conf = {
-  build: new Confidence.Store(require('./conf/build')),
   args: parseArgs(process.argv.slice(2)),
   gwd: __dirname
 };
@@ -21,8 +20,6 @@ require('fs').readdirSync('./gulp').forEach(function(file) {
 gulp.task('default', function() {
   console.log('gulp!');
 });
-
-gulp.task('lint', ['eslint', 'beautify'], function() {});
 
 process.on('exit', function() {
   if (gulp.fail) {

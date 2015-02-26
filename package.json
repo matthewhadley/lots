@@ -7,7 +7,7 @@
     "prepublish": "cp -r node_modules/hifile/assets/css/* public/css/hifile;cp -r node_modules/hifile/assets/js/* public/js/hifile",
     "start": "./bin/LOTS",
     "beautify": "gulp beautify --write",
-    "test": "gulp lint && node test"
+    "test": "gulp beautify && gulp lint && node test"
   },
   "bin": {
     "LOTS": "bin/LOTS"
@@ -29,7 +29,6 @@
     "minimist": "^0.1.0",
     "gulp-jsbeautifier": "0.0.2",
     "gulp-diff": "^0.1.4",
-    "confidence": "^0.12.1",
     "gulp-eslint": "^0.1.7"
   },
   "directories": {
