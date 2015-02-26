@@ -2,9 +2,9 @@
 /*eslint no-process-exit:0 */
 'use strict';
 
-// xxxxxxxxxxsssss
-
-var program = require('commander');
+var argv = require('minimist')(process.argv.slice(2));
+var pkg = require('../package');
+var util = require('util');
 var mkdirp = require('mkdirp');
 var server = require('../server');
 var path = require('path');
@@ -13,58 +13,74 @@ var port = 5000;
 var defaultIgnores = [
   'node_modules'
 ];
+var Spinner = require('cli-spinner').Spinner;
 
-function ignore(val, memo) {
-  memo.push(val);
-  return memo;
+function help() {
+  var usage = []
+    .concat(pkg.name + ' ' + pkg.version)
+    .concat('')
+    .concat(pkg.description)
+    .concat('')
+    .concat('-i, --ignore [directory] a directory to ignore (repeatable)')
+    .concat('-a, --all no default ignore directories, default ignores: ' + defaultIgnores)
+    .concat('-p, --port [port] port to run on, default is ' + port)
+    .concat('-c, --cache [cache] directory to use for filesystem cache, defaults to /tmp/LOTS')
+    .concat('-d, --directory [directory] directory to start LOTS, defaults to pwd')
+    .concat('-t, --todos whether to search code for TODOs as well as bang tags')
+    .concat('');
+    util.puts(usage.join('\n'));
+    process.exit();
 }
 
-program
-  .version(require('../package').version)
-  .option('-i, --ignore [directory]', 'a directory to ignore (repeatable)', ignore, [])
-  .option('-a, -all', 'no default ignore directories, default ignores: ' + defaultIgnores)
-  .option('-p, --port [port]', 'port to run on, default is ' + port)
-  .option('-c, --cache [cache]', 'directory to use for filesystem cache, defaults to /tmp/LOTS')
-  .option('-d, --directory [directory]', 'directory to start LOTS, defaults to pwd')
-  .option('-t, --todos', 'whether to search code for TODOs as well as bang tags');
-
-program.on('--help', function(){
-  console.log('  LOTS server');
-});
-
-program.parse(process.argv);
-
-if(!program.all) {
-  program.ignore = program.ignore.concat(defaultIgnores);
+// check for help or no args at all
+if(argv.help || argv.h || argv['?']){
+  help();
 }
 
-var config = {};
-config.port = program.port || port;
-config.todos = program.todos || false;
-config.ignore = program.ignore || false;
-if (program.cache) {
-  config.cache = path.join(process.cwd(), program.cache);
+argv.ignore = argv.ignore || argv.i || [];
+if(!Array.isArray(argv.ignore)) {
+  argv.ignore = [argv.ignore];
+}
+
+argv.all = argv.all || argv.a;
+argv.port = argv.port || argv.p || port;
+argv.cache = argv.cache || argv.c;
+argv.directory = argv.directory || argv.d;
+argv.todos = argv.todos || argv.t || false;
+
+if (!argv.all) {
+  argv.ignore = argv.ignore.concat(defaultIgnores);
+}
+
+if (argv.cache) {
+  argv.cache = path.join(process.cwd(), argv.cache);
 } else {
-  config.cache = '/tmp/LOTS';
+  argv.cache = '/tmp/LOTS';
 }
-if (program.directory) {
-  config.directory = path.join(process.cwd(), program.directory);
-} else {
-  config.directory = process.cwd();
-}
-config.exclude = '';
 
-if(config.ignore) {
-  config.ignore.forEach(function(ignore){
-    config.exclude += ' --exclude-dir ' + ignore;
+if (argv.directory) {
+  argv.directory = path.join(process.cwd(), argv.directory);
+} else {
+  argv.directory = process.cwd();
+}
+
+argv.exclude = '';
+if(argv.ignore) {
+  argv.ignore.forEach(function(ignore){
+    argv.exclude += ' --exclude-dir ' + ignore;
   });
 }
-mkdirp.sync(config.cache);
+mkdirp.sync(argv.cache);
 
-server(config);
+var spinner = new Spinner('Finding tickets.. %s');
+spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏');
+spinner.start();
 
-var lots = LOTS(config);
+server(argv);
+
+var lots = LOTS(argv);
 lots.generate(function(err) {
+  spinner.stop(true);
   if(err) {
     console.warn(err);
     process.exit(1);
