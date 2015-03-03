@@ -11,7 +11,7 @@ var path = require('path');
 var LOTS = require('../lib/lots');
 var port = 5000;
 var defaultIgnores = [
-  'node_modules'
+  'node_modules/*.*'
 ];
 var Spinner = require('cli-spinner').Spinner;
 
@@ -21,8 +21,8 @@ function help() {
     .concat('')
     .concat(pkg.description)
     .concat('')
-    .concat('-i, --ignore [directory] a directory to ignore (repeatable)')
-    .concat('-a, --all no default ignore directories, default ignores: ' + defaultIgnores)
+    .concat('-i, --ignore [pattern] a pattern to ignore (repeatable)')
+    .concat('-a, --all no default ignore patterns, default ignores: \'' + defaultIgnores.join('\', \'') + '\'')
     .concat('-p, --port [port] port to run on, default is ' + port)
     .concat('-c, --cache [cache] directory to use for filesystem cache, defaults to /tmp/LOTS')
     .concat('-d, --directory [directory] directory to start LOTS, defaults to pwd')
@@ -67,7 +67,7 @@ if (argv.directory) {
 argv.exclude = '';
 if(argv.ignore) {
   argv.ignore.forEach(function(ignore){
-    argv.exclude += ' --exclude-dir ' + ignore;
+    argv.exclude += ' --exclude \'' + ignore + '\'';
   });
 }
 mkdirp.sync(argv.cache);
