@@ -1,6 +1,6 @@
 <% include header %>
 
-<% if(!lots.tags) { %><p>No tags found!</p><% } %>
+<% if(lots.tickets.length === 0) { %><p>No tickets found!</p><% } else { %>
 <div class="lots">
   <table>
     <thead>
@@ -33,4 +33,5 @@
     </tbody>
   </table>
 </div>
+<% } %>
 <% include footer %>

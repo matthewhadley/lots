@@ -4,21 +4,23 @@ var Hapi = require('hapi');
 var chalk = require('chalk');
 var ejs = require('./lib/ejs');
 var moment = require('moment');
-var path = require('path');
 
 module.exports = function init(config) {
-  // server config
-  var server = new Hapi.Server('localhost', config.port, {
-    cors: true,
-    views: {
-      isCached: false,
-      path: path.join(__dirname, 'templates'),
-      engines: {
-        ejs: {
-          module: ejs
-        }
+
+  var server = new Hapi.Server();
+  server.connection({
+    port: config.port
+  });
+
+  server.views({
+    isCached: config.dev ? false : true,
+    engines: {
+      ejs: {
+        module: ejs
       }
-    }
+    },
+    relativeTo: __dirname,
+    path: 'templates'
   });
 
   server.settings.app = config;
@@ -46,7 +48,7 @@ module.exports = function init(config) {
   server.route(require('./routes/static'));
   server.route(require('./routes'));
 
-  server.ext('onPreResponse', require('./server/onPreResponse'));
+  // server.ext('onPreResponse', require('./server/onPreResponse'));
 
   server.start();
 

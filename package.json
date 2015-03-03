@@ -17,7 +17,7 @@
     "cli-spinner": "^0.2.0",
     "commander": "^2.2.0",
     "ejs": "^1.0.0",
-    "hapi": "^5.1.0",
+    "hapi": "^8.2.0",
     "hifile": "^1.4.0",
     "marked": "~0.2.9",
     "minimist": "^1.1.0",
