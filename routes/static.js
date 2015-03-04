@@ -19,4 +19,14 @@ statics.forEach(function(type) {
   });
 });
 
+var helpFile = path.join(__dirname, '..', 'public', 'index.html');
+
+staticRoutes.push({
+  method: 'GET',
+  path: '/help',
+  handler: function (request, reply) {
+    reply.file(helpFile);
+  }
+});
+
 module.exports = staticRoutes;

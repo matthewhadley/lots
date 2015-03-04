@@ -1,5 +1,4 @@
 var lots = require('../handlers/lots');
-var help = require('../handlers/help');
 var hifile = require('../handlers/hifile');
 
 module.exports = [{
@@ -19,12 +18,6 @@ module.exports = [{
   path: '/lots',
   config: {
     handler: lots.generate
-  }
-}, {
-  method: 'GET',
-  path: '/help',
-  config: {
-    handler: help.page
   }
 }, {
   method: 'GET',

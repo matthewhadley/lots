@@ -89,7 +89,7 @@
         font-size: 0.7em;
     }
   </style>
-  <% if(ghpages) { %>
+  
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -99,11 +99,31 @@
     ga('create', 'UA-31913835-4', 'littleopenticketsystem.info');
     ga('send', 'pageview');
   </script>
-  <% } %>
+  
 </head>
 <body>
 <div class="content">
-  <%- content %>
+  <h1>Little Open Ticket System</h1>
+
+
+<p><strong>LOTS</strong> is a simple ticketing system for code.</p>
+<p>Using twitter style tagging, you can add a <code>!comment</code> with a <code>#tag</code> and an optional <code>^priority</code>. These are then
+presented in a web interface. <strong>LOTS</strong> can optionally just find any mention
+of the word <em>TODO</em> in your code.</p>
+<p>Here is an example of a snippet that would be picked up by <strong>LOTS</strong>:</p>
+<pre><code>! This readme should be improved #documentation ^2
+</code></pre><h3>Screenshots</h3><h4>Tickets</h4><p><img src="https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/tickets.png" alt="ticket view"></p>
+<h4>File Viewer</h4><p><img src="https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/file.png" alt="file view"></p>
+<h3>Installation</h3><p>Install lots globally via npm:</p>
+<pre><code>$ [sudo] npm i -g lots
+</code></pre><p><strong>LOTS</strong> source is <a href="https://github.com/diffsky/LOTS">available on github</a></p>
+<h3>Usage</h3><p>In a directory you wish to review your code from, run:</p>
+<pre><code>$ LOTS
+</code></pre><p>Then visit <code>http://localhost:5000/</code> to see the report.</p>
+<p>See <code>LOTS -h</code> for more options</p>
+<hr>
+<p>LOTS logo designed by <a href="http://thenounproject.com/nas.ztu">NAS</a> from the <a href="http://thenounproject.com/">Noun Project</a> :: Creative Commons – Attribution (CC BY 3.0)</p>
+
 </div>
 </body>
 </html>
