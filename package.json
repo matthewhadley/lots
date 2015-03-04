@@ -7,7 +7,8 @@
     "prepublish": "cp -r node_modules/hifile/assets/css/* public/css/hifile;cp -r node_modules/hifile/assets/js/* public/js/hifile",
     "start": "./bin/LOTS",
     "beautify": "gulp beautify --write",
-    "test": "gulp beautify && gulp lint && node test"
+    "test": "gulp beautify && gulp lint && node test",
+    "gh-pages": "gulp gh-pages"
   },
   "bin": {
     "LOTS": "bin/LOTS"
