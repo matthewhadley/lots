@@ -9,8 +9,6 @@ Here is an example of a snippet that would be picked up by LOTS:
 
     !This readme should be improved #documentation ^2
 
-### Screenshots
-
 #### Tickets
 
 ![ticket view](https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/tickets.png)
