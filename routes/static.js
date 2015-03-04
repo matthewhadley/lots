@@ -24,7 +24,7 @@ var helpFile = path.join(__dirname, '..', 'public', 'index.html');
 staticRoutes.push({
   method: 'GET',
   path: '/help',
-  handler: function (request, reply) {
+  handler: function(request, reply) {
     reply.file(helpFile);
   }
 });
