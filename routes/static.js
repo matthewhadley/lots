@@ -19,7 +19,7 @@ statics.forEach(function(type) {
   });
 });
 
-var helpFile = path.join(__dirname, '..', 'public', 'index.html');
+var helpFile = path.join(__dirname, '..', 'public', 'help.html');
 
 staticRoutes.push({
   method: 'GET',

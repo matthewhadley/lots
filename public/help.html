@@ -16,7 +16,7 @@
         font-size: 1.2em;
     }
     h1 {
-        font-size: 3em;
+        font-size: 2.5em;
         margin: 0 0 0.5em 0;
         background: url('https://cdn.rawgit.com/diffsky/LOTS/master/assets/lots-64.png') no-repeat 0px 5px;
         background-size: 48px 48px;
@@ -39,6 +39,7 @@
     }
     p {
         margin: 0 0 0.5em 0;
+        line-height: 1.4em;
     }
     p#dl a {
         color: #B3B3B3;
@@ -59,8 +60,6 @@
       white-space: pre;
       white-space: pre-wrap;
       background-color: #f5f5f5;
-      border: 1px solid #ccc;
-      border: 1px solid rgba(0,0,0,0.15);
       border-radius: 4px;
     }
     code {
@@ -71,8 +70,6 @@
       white-space: pre;
       white-space: pre-wrap;
       background-color: #f5f5f5;
-      border: 1px solid #ccc;
-      border: 1px solid rgba(0,0,0,0.15);
       border-radius: 4px;
     }
     img {
@@ -88,6 +85,28 @@
     hr + p {
         font-size: 0.7em;
     }
+
+    @media (max-width: 840px) {
+      h1 {
+        font-size: 2em;
+      }
+      img {
+        max-width: 420px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      img {
+        max-width: 320px;
+      }
+    }
+
+    @media screen and (device-aspect-ratio: 2/3), screen and (device-aspect-ratio: 40/71) {
+      body {
+        font-size: 2.1em;
+      }
+    }
+
   </style>
   
 </head>
@@ -96,17 +115,16 @@
   <h1>Little Open Ticket System</h1>
 
 
-<p><strong>LOTS</strong> is a simple ticketing system for code.</p>
+<p>LOTS is a simple ticketing system for code.</p>
 <p>Using twitter style tagging, you can add a <code>!comment</code> with a <code>#tag</code> and an optional <code>^priority</code>. These are then
-presented in a web interface. <strong>LOTS</strong> can optionally just find any mention
-of the word <em>TODO</em> in your code.</p>
-<p>Here is an example of a snippet that would be picked up by <strong>LOTS</strong>:</p>
-<pre><code>! This readme should be improved #documentation ^2
+presented in a web interface. LOTS can also find any mention of the word “TODO” in your code.</p>
+<p>Here is an example of a snippet that would be picked up by LOTS:</p>
+<pre><code>!This readme should be improved #documentation ^2
 </code></pre><h3>Screenshots</h3><h4>Tickets</h4><p><img src="https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/tickets.png" alt="ticket view"></p>
 <h4>File Viewer</h4><p><img src="https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/file.png" alt="file view"></p>
 <h3>Installation</h3><p>Install lots globally via npm:</p>
 <pre><code>$ [sudo] npm i -g lots
-</code></pre><p><strong>LOTS</strong> source is <a href="https://github.com/diffsky/LOTS">available on github</a></p>
+</code></pre><p>LOTS source is <a href="https://github.com/diffsky/LOTS">available on github</a></p>
 <h3>Usage</h3><p>In a directory you wish to review your code from, run:</p>
 <pre><code>$ LOTS
 </code></pre><p>Then visit <code>http://localhost:5000/</code> to see the report.</p>

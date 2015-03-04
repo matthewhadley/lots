@@ -16,7 +16,7 @@
         font-size: 1.2em;
     }
     h1 {
-        font-size: 3em;
+        font-size: 2.5em;
         margin: 0 0 0.5em 0;
         background: url('https://cdn.rawgit.com/diffsky/LOTS/master/assets/lots-64.png') no-repeat 0px 5px;
         background-size: 48px 48px;
@@ -39,6 +39,7 @@
     }
     p {
         margin: 0 0 0.5em 0;
+        line-height: 1.4em;
     }
     p#dl a {
         color: #B3B3B3;
@@ -59,8 +60,6 @@
       white-space: pre;
       white-space: pre-wrap;
       background-color: #f5f5f5;
-      border: 1px solid #ccc;
-      border: 1px solid rgba(0,0,0,0.15);
       border-radius: 4px;
     }
     code {
@@ -71,8 +70,6 @@
       white-space: pre;
       white-space: pre-wrap;
       background-color: #f5f5f5;
-      border: 1px solid #ccc;
-      border: 1px solid rgba(0,0,0,0.15);
       border-radius: 4px;
     }
     img {
@@ -88,6 +85,28 @@
     hr + p {
         font-size: 0.7em;
     }
+
+    @media (max-width: 840px) {
+      h1 {
+        font-size: 2em;
+      }
+      img {
+        max-width: 420px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      img {
+        max-width: 320px;
+      }
+    }
+
+    @media screen and (device-aspect-ratio: 2/3), screen and (device-aspect-ratio: 40/71) {
+      body {
+        font-size: 2.1em;
+      }
+    }
+
   </style>
   <% if(ghpages) { %>
   <script>
