@@ -4,6 +4,7 @@ var marked = require('marked');
 var path = require('path');
 var fs = require('fs');
 var ejs = require('ejs');
+var mkdirp = require('mkdirp').sync;
 
 var renderer = new marked.Renderer();
 // don't add ids to headings
@@ -15,7 +16,7 @@ module.exports = function(gulp, conf) {
 
   gulp.task('gh-pages', function(cb) {
 
-    var data = fs.readFileSync(path.join(__dirname, '../README.md'), 'utf8');
+    var data = fs.readFileSync(path.join(__dirname, '..', 'README.md'), 'utf8');
     // remove leading H1 with travis info
     data = data.split('\n');
     data.shift();
@@ -28,7 +29,9 @@ module.exports = function(gulp, conf) {
     var tpl = fs.readFileSync(path.join(process.cwd(), 'templates', 'help.ejs'), 'utf8');
     var render = ejs.compile(tpl);
 
-    fs.writeFileSync(path.join('public', 'index.html'), render({
+    mkdirp(path.join(__dirname, '..', '.gh-pages'));
+
+    fs.writeFileSync(path.join(__dirname, '..', '.gh-pages', 'index.html'), render({
       ghpages: true,
       content: content
     }));
