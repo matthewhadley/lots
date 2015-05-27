@@ -26,7 +26,7 @@
         <td class="file"><a href="/view/<%= lots.basename %>/<%= ticket.file %>#L<%= ticket.line %>" class="hifile"><%= ticket.file %></a></td>
         <td class="line"><a href="/view/<%= lots.basename %>/<%= ticket.file %>#L<%= ticket.line %>" class="hifile"><%= ticket.line %></a></td>
         <% if(lots.usingPriority) { %>
-        <td class="priority p<%= ticket.priority %>"><a href="/view/<%= lots.basename %>/<%= ticket.file %>#L<%= ticket.line %>" class="hifile"><% if(ticket.priority){ %><%= ticket.priority %><% } else { %><span class="pnone">none</span><% } %></a></td>
+        <td class="priority p<%= ticket.priority %>"><a href="/view/<%= lots.basename %>/<%= ticket.file %>#L<%= ticket.line %>" class="hifile"><% if(ticket.priority >= 0){ %><%= ticket.priority %><% } else { %><span class="pnone">none</span><% } %></a></td>
         <% } %>
       </tr>
       <% }) %>

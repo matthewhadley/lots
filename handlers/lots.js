@@ -4,19 +4,19 @@ var LOTS = require('../lib/lots');
 
 exports.cache = function(request, reply) {
   var lots = LOTS(request.server.settings.app);
-  lots.cached(function(err, data) {
-    if (!err && data) {
-      data.cached = true;
+  lots.cached(function(cacheErr, cacheData) {
+    if (!cacheErr && cacheData) {
+      cacheData.cached = true;
       return reply.view('lots', {
-        lots: data
+        lots: cacheData
       });
     } else {
-      lots.generate(function(err, data) {
-        if (err) {
+      lots.generate(function(generateErr, generateData) {
+        if (generateErr) {
           reply.view('error');
         }
         reply.view('lots', {
-          lots: data
+          lots: generateData
         });
       });
     }
