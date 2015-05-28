@@ -8,6 +8,7 @@ var util = require('util');
 var mkdirp = require('mkdirp');
 var path = require('path');
 var LOTS = require('../lib/lots');
+var formatter = require('../lib/formatter');
 var port = 5000;
 var defaultIgnores = [
   'node_modules/*'
@@ -20,22 +21,25 @@ function help() {
     .concat('')
     .concat(pkg.description)
     .concat('')
-    .concat('-i, --ignore [pattern] a pattern to ignore (repeatable)')
+    .concat('-i, --ignore <pattern> a pattern to ignore (repeatable)')
     .concat('-a, --all no default ignore patterns, default ignores: \'' + defaultIgnores.join('\', \'') + '\'')
-    .concat('-p, --port [port] port to run on, default is ' + port)
-    .concat('-c, --cache [cache] directory to use for filesystem cache, defaults to /tmp/LOTS')
-    .concat('-d, --directory [directory] directory to start LOTS, defaults to pwd')
+    .concat('-c, --cache <cache> directory to use for filesystem cache, defaults to /tmp/LOTS')
+    .concat('-d, --directory <directory> directory to start LOTS, defaults to pwd')
     .concat('-t, --todos whether to search code for TODOs as well as bang tags')
-    .concat('-s, --server start a LOTS server (current default)')
+    .concat('-g, --group <tag|file|none> how to group results for cli output')
+    .concat('-s, --server start a LOTS server to view results')
+    .concat('-p, --port [port] port to run on, default is ' + port)
     .concat('');
     util.puts(usage.join('\n'));
     process.exit();
 }
 
-// check for help or no args at all
-if(argv.help || argv.h || argv['?']){
+// check for help
+if(argv.help || argv.h || argv._ && argv._.length === 1 && argv._[0] === '?'){
   help();
 }
+
+// ! support a .lotsrc for default configs #refactor ^1
 
 argv.ignore = argv.ignore || argv.i || [];
 if(!Array.isArray(argv.ignore)) {
@@ -73,13 +77,12 @@ if(argv.ignore) {
 }
 mkdirp.sync(argv.cache);
 
-var spinner = new Spinner('Finding tickets.. %s');
-spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏');
-// !disable for cli pipe to less #todo
-spinner.start();
+if(process.stdout.isTTY) {
+  var spinner = new Spinner('Finding tickets.. %s');
+  spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏');
+  spinner.start();
+}
 
-// prep for cli tool
-argv.server = true;
 (function(){
   if(argv.server) {
     require('../server')(argv);
@@ -87,12 +90,22 @@ argv.server = true;
 }());
 
 var lots = LOTS(argv);
-lots.generate(function(err) {
-  // !disable for cli pipe to less #todo
-  spinner.stop(true);
+lots.generate(function(err, data) {
+  if(spinner) {
+    spinner.stop(true);
+  }
   if(err) {
     console.warn(err);
     process.exit(1);
   }
-  lots.log();
+
+  if(argv.server) {
+    lots.log();
+  } else {
+    argv.group = argv.group || 'tag';
+    if(!formatter[argv.group]) {
+      argv.group = 'tag';
+    }
+    formatter[argv.group](argv, data);
+  }
 });
