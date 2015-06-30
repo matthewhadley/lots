@@ -8,7 +8,7 @@ var util = require('util');
 var mkdirp = require('mkdirp');
 var path = require('path');
 var LOTS = require('../lib/lots');
-var formatter = require('../lib/formatter');
+var tickets = require('../lib/tickets');
 var port = 5000;
 var defaultIgnores = [
   'node_modules/*'
@@ -39,7 +39,7 @@ if(argv.help || argv.h || argv._ && argv._.length === 1 && argv._[0] === '?'){
   help();
 }
 
-// ! support a .lotsrc for default configs #refactor ^1
+// !support a .lotsrc for default configs #refactor ^1
 
 argv.ignore = argv.ignore || argv.i || [];
 if(!Array.isArray(argv.ignore)) {
@@ -103,9 +103,10 @@ lots.generate(function(err, data) {
     lots.log();
   } else {
     argv.group = argv.group || 'tag';
-    if(!formatter[argv.group]) {
+    if(!tickets[argv.group]) {
       argv.group = 'tag';
     }
-    formatter[argv.group](argv, data);
+    argv.cli = true;
+    tickets[argv.group](argv, data);
   }
 });
