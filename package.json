@@ -1,7 +1,7 @@
 {
   "name": "lots",
   "description": "Little Open Ticket System. View todos and tags in a codebase.",
-  "version": "0.11.1",
+  "version": "1.0.0",
   "main": "server.js",
   "scripts": {
     "prepublish": "cp -r node_modules/hifile/assets/css/* public/css/hifile;cp -r node_modules/hifile/assets/js/* public/js/hifile",
@@ -19,6 +19,7 @@
     "ejs": "^2.3.1",
     "hapi": "^8.2.0",
     "hifile": "^1.4.0",
+    "lodash": "^3.9.3",
     "minimist": "^1.1.0",
     "mkdirp": "~0.3.5",
     "moment": "^2.3.1",

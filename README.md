@@ -11,10 +11,28 @@ Here is an example of a snippet that would be picked up by LOTS:
 
 #### Tickets
 
+Since `1.0.0` the default behaviour of LOTS is to display tickets on the command line:
+
+```
+#documentation
+ 1  Make this useful test/data/index.js:3
+ 2  This readme should be improved public/help.html:122
+ 2  This readme should be improved README.md:10
+#refactor
+ 1  support a .lotsrc for default configs bin/LOTS:42
+ -  tags should be sorted to be consistent with cli output lib/lots.js:198
+ -  should be able to sort/group on web interface, same as cli lib/lots.js:199
+#todo
+ -  make this configuration lib/lots.js:44
+```
+
+Alternatively tickets can be displayed in a web view when lots is started with the `--server` option
+
 ![ticket view](https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/tickets.png)
 
 #### File Viewer
 
+Available in `--server` mode:
 ![file view](https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/file.png)
 
 ### Installation
@@ -31,7 +49,7 @@ In a directory you wish to review your code from, run:
 
     $ LOTS
 
-Then visit `http://localhost:5000/` to see the report.
+When started with `--server` you can then visit `http://localhost:5000/` to see the report.
 
 See `LOTS -h` for more options.
 
