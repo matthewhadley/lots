@@ -52,6 +52,7 @@ argv.cache = argv.cache || argv.c;
 argv.directory = argv.directory || argv.d;
 argv.todos = argv.todos || argv.t || false;
 argv.server = argv.server || argv.s || false;
+argv.group = argv.group || argv.g || 'tag';
 
 if (!argv.all) {
   argv.ignore = argv.ignore.concat(defaultIgnores);
