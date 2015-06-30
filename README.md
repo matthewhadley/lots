@@ -11,8 +11,7 @@ Here is an example of a snippet that would be picked up by LOTS:
 
 #### Tickets
 
-Since `1.0.0` the default behaviour of LOTS is to display tickets on the command line:
-
+Since `1.0.0` the default behaviour of LOTS is to display tickets on the command line
 ```
 #documentation
  1  Make this useful test/data/index.js:3
@@ -26,13 +25,13 @@ Since `1.0.0` the default behaviour of LOTS is to display tickets on the command
  -  make this configuration lib/lots.js:44
 ```
 
-Alternatively tickets can be displayed in a web view when lots is started with the `--server` option
+Tickets can be displayed in a web view when lots is started with the `--server` option
 
 ![ticket view](https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/tickets.png)
 
 #### File Viewer
 
-Available in `--server` mode:
+Available in `--server` mode
 ![file view](https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/file.png)
 
 ### Installation
