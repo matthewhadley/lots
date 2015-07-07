@@ -52,6 +52,11 @@ When started with `--server` you can then visit `http://localhost:5000/` to see 
 
 See `LOTS -h` for more options.
 
+### Configuration
+
+Lots will read any `.lotsrc` configuration file it can find in either json or ini
+format, in the [paths you might expect](https://github.com/dominictarr/rc#standards).
+
 
 ---
 

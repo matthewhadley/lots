@@ -39,20 +39,17 @@ if(argv.help || argv.h || argv._ && argv._.length === 1 && argv._[0] === '?'){
   help();
 }
 
-// !support a .lotsrc for default configs #refactor ^1
-
-argv.ignore = argv.ignore || argv.i || [];
-if(!Array.isArray(argv.ignore)) {
-  argv.ignore = [argv.ignore];
-}
-
-argv.all = argv.all || argv.a;
-argv.port = argv.port || argv.p || port;
-argv.cache = argv.cache || argv.c;
-argv.directory = argv.directory || argv.d;
-argv.todos = argv.todos || argv.t || false;
-argv.server = argv.server || argv.s || false;
-argv.group = argv.group || argv.g || 'tag';
+// mix in defaults to any lotsrc file
+var argv = require('rc')(pkg.name, {
+  ignore: argv.ignore || argv.i || [],
+  all: argv.all || argv.a,
+  port: argv.port || argv.p || port,
+  cache: argv.cache || argv.c,
+  directory: argv.directory || argv.d,
+  todos: argv.todos || argv.t || false,
+  server: argv.server || argv.s || false,
+  group: argv.group || argv.g || 'tag'
+});
 
 if (!argv.all) {
   argv.ignore = argv.ignore.concat(defaultIgnores);
