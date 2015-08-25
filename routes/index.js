@@ -1,3 +1,5 @@
+'use strict';
+
 var lots = require('../handlers/lots');
 var hifile = require('../handlers/hifile');
 
