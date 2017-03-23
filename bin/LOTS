@@ -51,6 +51,10 @@ var argv = require('rc')(pkg.name, {
   group: argv.group || argv.g || 'tag'
 });
 
+if (argv.ignore) {
+  argv.ignore = typeof argv.ignore === 'string' ? [argv.ignore]: argv.ignore;
+}
+
 if (!argv.all) {
   argv.ignore = argv.ignore.concat(defaultIgnores);
 }
