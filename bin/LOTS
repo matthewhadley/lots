@@ -56,6 +56,7 @@ if (argv.ignore) {
 }
 
 if (!argv.all) {
+  argv.ignore = typeof argv.ignore === 'string' ? [argv.ignore]: argv.ignore;
   argv.ignore = argv.ignore.concat(defaultIgnores);
 }
 
