@@ -43,10 +43,10 @@ var expected = {
   tags: ['documentation', 'TODO']
 };
 
-test('should make a request', function(t) {
+test('should make a request', function (t) {
   t.plan(2);
   var lots = LOTS(config);
-  lots.generate(function(err, res) {
+  lots.generate(function (err, res) {
     if (err) {
       t.fail(err);
     }

@@ -105,6 +105,12 @@
       body {
         font-size: 2.1em;
       }
+      body p code, body pre code {
+        font-size: 0.9em;
+      }
+      h1 {
+        font-size: 1.6em;
+      }
     }
 
   </style>
@@ -120,15 +126,33 @@
 presented in a web interface. LOTS can also find any mention of the word “TODO” in your code.</p>
 <p>Here is an example of a snippet that would be picked up by LOTS:</p>
 <pre><code>!This readme should be improved #documentation ^2
-</code></pre><h3>Screenshots</h3><h4>Tickets</h4><p><img src="https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/tickets.png" alt="ticket view"></p>
-<h4>File Viewer</h4><p><img src="https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/file.png" alt="file view"></p>
+</code></pre><p>Hidden file and directories are not searched.</p>
+<p>Set the environment variable <code>LOTS_RG=1</code> to have LOTS use the faster <a href="https://github.com/BurntSushi/ripgrep">ripgrep</a>
+instead of grep.</p>
+<h4>Tickets</h4><p>Since <code>1.0.0</code> the default behaviour of LOTS is to display tickets on the command line</p>
+<pre><code>#documentation
+ 1  Make this useful test/data/index.js:3
+ 2  This readme should be improved public/help.html:122
+ 2  This readme should be improved README.md:10
+#refactor
+ 1  support a .lotsrc for default configs bin/LOTS:42
+ -  tags should be sorted to be consistent with cli output lib/lots.js:198
+ -  should be able to sort/group on web interface, same as cli lib/lots.js:199
+#todo
+ -  make this configuration lib/lots.js:44
+</code></pre><p>Tickets can be displayed in a web view when lots is started with the <code>--server</code> option</p>
+<p><img src="https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/tickets.png" alt="ticket view"></p>
+<h4>File Viewer</h4><p>Available in <code>--server</code> mode
+<img src="https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/file.png" alt="file view"></p>
 <h3>Installation</h3><p>Install lots globally via npm:</p>
 <pre><code>$ [sudo] npm i -g lots
 </code></pre><p>LOTS source is <a href="https://github.com/diffsky/LOTS">available on github</a></p>
 <h3>Usage</h3><p>In a directory you wish to review your code from, run:</p>
 <pre><code>$ LOTS
-</code></pre><p>Then visit <code>http://localhost:5000/</code> to see the report.</p>
-<p>See <code>LOTS -h</code> for more options</p>
+</code></pre><p>When started with <code>--server</code> you can then visit <code>http://localhost:5000/</code> to see the report.</p>
+<p>See <code>LOTS -h</code> for more options.</p>
+<h3>Configuration</h3><p>Lots will read any <code>.lotsrc</code> configuration file it can find in either json or ini
+format, in the <a href="https://github.com/dominictarr/rc#standards">paths you might expect</a>.</p>
 <hr>
 <p>LOTS logo designed by <a href="http://thenounproject.com/nas.ztu">NAS</a> from the <a href="http://thenounproject.com/">Noun Project</a> :: Creative Commons – Attribution (CC BY 3.0)</p>
 

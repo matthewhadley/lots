@@ -1,14 +1,14 @@
 {
   "name": "lots",
   "description": "Little Open Ticket System. View todos and tags in a codebase.",
-  "version": "1.6.0",
-  "main": "server.js",
+  "version": "2.0.0",
+  "main": "lib/tickets.js",
   "scripts": {
     "prepublish": "cp -r node_modules/hifile/assets/css/* public/css/hifile;cp -r node_modules/hifile/assets/js/* public/js/hifile",
     "start": "./bin/LOTS",
-    "beautify": "gulp beautify --write",
-    "test": "gulp beautify && gulp lint && node test",
-    "gh-pages": "gulp gh-pages"
+    "test": "npm run lint && node test",
+    "gh-pages": "node gh-pages",
+    "lint": "eslint **/*.js"
   },
   "bin": {
     "LOTS": "bin/LOTS"
@@ -27,15 +27,15 @@
     "split": "^1.0.0"
   },
   "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-diff": "^0.3.1",
-    "gulp-eslint": "^1.0.0",
-    "gulp-jsbeautifier": "1.0.1",
     "marked": "^0.3.3",
-    "tape": "^4.0.0"
-  },
-  "directories": {
-    "test": "test"
+    "tape": "^4.0.0",
+    "eslint": "^4.9.0",
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1"
   },
   "repository": {
     "type": "git",
@@ -55,5 +55,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/diffsky/LOTS/issues"
+  },
+  "homepage": "https://github.com/diffsky/LOTS#readme",
+  "eslintConfig": {
+    "extends": "semistandard"
   }
 }

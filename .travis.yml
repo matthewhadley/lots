@@ -6,7 +6,7 @@ env:
    - GH_REF: github.com/diffsky/LOTS.git
    - secure: ZWSsoOn+2fIBBmCodEk5FFFEtL8jLcqkZTJpmATBTW7qCvkWjHL2vLuyxXmFEkN74oIQLVhMYXHAYMfnH0DGb1Kok4mczR/qNGGaADfweKPwwkQD6YhuQEggmB8gQ57YCaeDgefTud1KdGdmyIiNa0y3tJ368kRvjGHZwYRbG40=
 after_success:
- - npm run-script gh-pages
+ - npm run gh-pages
  - cd .gh-pages
  - echo "littleopenticketsystem.info" > CNAME
  - echo "littleopenticketsystem.info" > README.md

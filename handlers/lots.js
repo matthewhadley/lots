@@ -4,9 +4,9 @@ var LOTS = require('../lib/lots');
 var tickets = require('../lib/tickets');
 
 // !maybe be able to sort/group on web interface, same as cli #refactor
-exports.cache = function(request, reply) {
+exports.cache = function (request, reply) {
   var lots = LOTS(request.server.settings.app);
-  lots.cached(function(cacheErr, cacheData) {
+  lots.cached(function (cacheErr, cacheData) {
     if (!cacheErr && cacheData) {
       cacheData.cached = true;
 
@@ -18,7 +18,7 @@ exports.cache = function(request, reply) {
         lots: cacheData
       });
     } else {
-      lots.generate(function(generateErr, generateData) {
+      lots.generate(function (generateErr, generateData) {
         if (generateErr) {
           reply.view('error');
         }
@@ -35,9 +35,9 @@ exports.cache = function(request, reply) {
   });
 };
 
-exports.generate = function(request, reply) {
+exports.generate = function (request, reply) {
   var lots = LOTS(request.server.settings.app);
-  lots.generate(function(err, data) {
+  lots.generate(function (err, data) {
     if (err) {
       return reply.view('error');
     }

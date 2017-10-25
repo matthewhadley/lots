@@ -5,7 +5,7 @@ var path = require('path');
 // generate routes for static content delivery
 var statics = ['css', 'img', 'js'];
 var staticRoutes = [];
-statics.forEach(function(type) {
+statics.forEach(function (type) {
   staticRoutes.push({
     method: 'GET',
     path: '/' + type + '/{path*}',
@@ -24,7 +24,7 @@ var helpFile = path.join(__dirname, '..', 'public', 'help.html');
 staticRoutes.push({
   method: 'GET',
   path: '/help',
-  handler: function(request, reply) {
+  handler: function (request, reply) {
     reply.file(helpFile);
   }
 });
