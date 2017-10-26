@@ -9,7 +9,9 @@ Here is an example of a snippet that would be picked up by LOTS:
 
     !This readme should be improved #documentation ^2
 
-Hidden file and directories are not searched.
+Note that:
+ - hidden file and directories are not searched.
+ - LOTS tickets must have a space before the `!comment` or be at the start of a line
 
 Set the environment variable `LOTS_RG=1` to have LOTS use the faster [ripgrep](https://github.com/BurntSushi/ripgrep)
 instead of grep.
