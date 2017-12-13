@@ -8,8 +8,7 @@ env:
 after_success:
  - npm run gh-pages
  - cd .gh-pages
- - echo "littleopenticketsystem.info" > CNAME
- - echo "littleopenticketsystem.info" > README.md
+ - echo "LittleOpenTicketSystem" > README.md
  - touch .nojekyll
  - git init
  - git config user.name "diffsky"
