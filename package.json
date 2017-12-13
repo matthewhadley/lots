@@ -6,7 +6,7 @@
   "scripts": {
     "prepublish": "cp -r node_modules/hifile/assets/css/hifile.css public/css/hifile/;cp -r node_modules/hifile/assets/js/hifile.js public/js/hifile/",
     "start": "./bin/LOTS",
-    "test": "npm run lint",
+    "test": "npm run lint && node test",
     "gh-pages": "node gh-pages",
     "lint": "eslint **/*.js"
   },
