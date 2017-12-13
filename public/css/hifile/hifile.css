@@ -1,6 +1,10 @@
 /* for fullpage view, master stylesheet shoule have body margin set to 0 */
 /* body {margin: 0} */
 
+.hifile.hljs {
+  padding: 0;
+}
+
 .hifile{
   font-family: monospace, serif;
   font-size: 14px;

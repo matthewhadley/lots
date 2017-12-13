@@ -1,3 +1,7 @@
+# 2.2.0
+
+- update hifile dep and cleanup
+
 # 2.0.1
 
 - improve ticket matching
