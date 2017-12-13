@@ -1,9 +1,12 @@
-(function(){
+// !support multi-line select #TODO
+// !support deselect repeat click select #TODO
+
+(function () {
   'use strict';
   var curhl = {};
 
   var hifile = {
-    init: function() {
+    init: function () {
       var hl;
       hl = window.location.hash.substring(2);
       if (hl) {
@@ -11,7 +14,7 @@
       }
       document.getElementById('col').addEventListener('click', hifile.update);
     },
-    highlight: function(hl){
+    highlight: function (hl) {
       var col = document.getElementById('L' + hl);
       var line = document.getElementById('H' + hl);
       // remove any existing highlight
@@ -27,7 +30,7 @@
         curhl.line = line;
       }
     },
-    hash: function(e) {
+    hash: function (e) {
       // get the line from the hash change (for example, from browser back navigation)
       hifile.highlight(e.newURL.split('#')[1].substr(1));
     },
@@ -37,10 +40,10 @@
       hl = e.target.innerText;
       hifile.highlight(hl);
       hash = '#L' + hl;
-      if (history.pushState) {
-        history.pushState(null, null, hash);
+      if (window.history.pushState) {
+        window.history.pushState(null, null, hash);
       } else {
-        location.hash = hash;
+        window.location.hash = hash;
       }
     }
   };
