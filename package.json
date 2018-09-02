@@ -39,7 +39,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/diffsky/LOTS.git"
+    "url": "git://github.com/matthewhadley/LOTS.git"
   },
   "keywords": [
     "LOTS",
@@ -54,9 +54,9 @@
   "author": "Matthew Hadley <matthew.hadley@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/diffsky/LOTS/issues"
+    "url": "https://github.com/matthewhadley/LOTS/issues"
   },
-  "homepage": "https://github.com/diffsky/LOTS#readme",
+  "homepage": "https://github.com/matthewhadley/LOTS#readme",
   "eslintConfig": {
     "extends": "semistandard"
   }

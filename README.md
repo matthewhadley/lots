@@ -1,4 +1,4 @@
-# [![LOTS](https://raw.githubusercontent.com/diffsky/lots/master/assets/lots-64.png)](https://github.com/diffsky/lots) Little Open Ticket System [![](https://travis-ci.org/diffsky/LOTS.svg)](https://travis-ci.org/diffsky/LOTS)
+# [![LOTS](https://raw.githubusercontent.com/matthewhadley/lots/master/assets/lots-64.png)](https://github.com/matthewhadley/lots) Little Open Ticket System [![](https://travis-ci.org/matthewhadley/LOTS.svg)](https://travis-ci.org/matthewhadley/LOTS)
 
 LOTS is a simple ticketing system for code.
 
@@ -34,12 +34,12 @@ Since `1.0.0` the default behaviour of LOTS is to display tickets on the command
 
 Tickets can be displayed in a web view when lots is started with the `--server` option
 
-![ticket view](https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/tickets.png)
+![ticket view](https://raw.githubusercontent.com/matthewhadley/LOTS/master/public/img/help/tickets.png)
 
 #### File Viewer
 
 Available in `--server` mode
-![file view](https://raw.githubusercontent.com/diffsky/LOTS/master/public/img/help/file.png)
+![file view](https://raw.githubusercontent.com/matthewhadley/LOTS/master/public/img/help/file.png)
 
 ### Installation
 
@@ -47,7 +47,7 @@ Install lots globally via npm:
 
     $ [sudo] npm i -g lots
 
-LOTS source is [available on github](https://github.com/diffsky/LOTS)
+LOTS source is [available on github](https://github.com/matthewhadley/LOTS)
 
 ### Usage
 
