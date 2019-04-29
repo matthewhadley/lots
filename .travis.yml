@@ -3,7 +3,7 @@ node_js:
   - "8"
 env:
  global:
-   - GH_REF: github.com/diffsky/LOTS.git
+   - GH_REF: github.com/matthewhadley/LOTS.git
    - secure: ZWSsoOn+2fIBBmCodEk5FFFEtL8jLcqkZTJpmATBTW7qCvkWjHL2vLuyxXmFEkN74oIQLVhMYXHAYMfnH0DGb1Kok4mczR/qNGGaADfweKPwwkQD6YhuQEggmB8gQ57YCaeDgefTud1KdGdmyIiNa0y3tJ368kRvjGHZwYRbG40=
 after_success:
  - npm run gh-pages
@@ -11,7 +11,7 @@ after_success:
  - echo "LittleOpenTicketSystem" > README.md
  - touch .nojekyll
  - git init
- - git config user.name "diffsky"
+ - git config user.name "matthewhadley"
  - git config user.email "matthew.hadley@gmail.com"
  - git add .
  - git commit -m "build gh-pages"
