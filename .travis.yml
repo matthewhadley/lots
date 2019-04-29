@@ -1,22 +1,21 @@
 language: node_js
 node_js:
-  - "8"
+- '8'
 env:
- global:
-   - GH_REF: github.com/matthewhadley/LOTS.git
-   - secure: ZWSsoOn+2fIBBmCodEk5FFFEtL8jLcqkZTJpmATBTW7qCvkWjHL2vLuyxXmFEkN74oIQLVhMYXHAYMfnH0DGb1Kok4mczR/qNGGaADfweKPwwkQD6YhuQEggmB8gQ57YCaeDgefTud1KdGdmyIiNa0y3tJ368kRvjGHZwYRbG40=
+  global:
+  - GH_REF: github.com/matthewhadley/LOTS.git
+  - secure: bjko3lwnRf5KIXF/Ahcr50fvf6CHm3gn/UU4jcdQaQ4otQ5NjN/5susuKoEFzW1TpmZH1Vg/vBHlH8apaBonEzmttYztGcHSmKEZeYM5E524/eaBYozOrD+kgCBfGccofYXLe27lJJZ/3/NdFn+xaGb2YQGTApAePVYWIEm6E80=
 after_success:
- - npm run gh-pages
- - cd .gh-pages
- - echo "LittleOpenTicketSystem" > README.md
- - touch .nojekyll
- - git init
- - git config user.name "matthewhadley"
- - git config user.email "matthew.hadley@gmail.com"
- - git add .
- - git commit -m "build gh-pages"
- - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
-
+- npm run gh-pages
+- cd .gh-pages
+- echo "LittleOpenTicketSystem" > README.md
+- touch .nojekyll
+- git init
+- git config user.name "matthewhadley"
+- git config user.email "matthew.hadley@gmail.com"
+- git add .
+- git commit -m "build gh-pages"
+- git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
 branches:
- only:
-   - master
+  only:
+  - master
