@@ -1,68 +1,53 @@
 #!/usr/bin/env node
-/*eslint no-process-exit:0 */
+/* eslint no-process-exit:0 */
 'use strict';
 
 var argv = require('minimist')(process.argv.slice(2));
 var pkg = require('../package');
-var util = require('util');
-var mkdirp = require('mkdirp');
 var path = require('path');
 var LOTS = require('../lib/lots');
 var tickets = require('../lib/tickets');
-var port = 5000;
 var defaultIgnores = [
-  'node_modules/*'
+  '!**/node_modules/**'
 ];
 var Spinner = require('cli-spinner').Spinner;
 
-function help() {
+function help () {
   var usage = []
     .concat(pkg.name + ' ' + pkg.version)
     .concat('')
     .concat(pkg.description)
     .concat('')
-    .concat('-i, --ignore <pattern> a pattern to ignore (repeatable)')
+    .concat('-g, --glob <pattern> a pattern to glob (repeatable)')
     .concat('-a, --all no default ignore patterns, default ignores: \'' + defaultIgnores.join('\', \'') + '\'')
-    .concat('-c, --cache <cache> directory to use for filesystem cache, defaults to /tmp/LOTS')
-    .concat('-d, --directory <directory> directory to start LOTS, defaults to pwd')
+    .concat('-d, --directory <directory> directory to start LOTS, defaults to current directory')
     .concat('-t, --todos whether to search code for TODOs as well as bang tags')
-    .concat('-g, --group <tag|file|none> how to group results for cli output')
-    .concat('-s, --server start a LOTS server to view results')
-    .concat('-p, --port [port] port to run on, default is ' + port)
+    .concat('-b, --by group results by <tag|file|priority>')
     .concat('');
-    util.puts(usage.join('\n'));
-    process.exit();
+  console.log(usage.join('\n'));
+  process.exit();
 }
 
 // check for help
-if(argv.help || argv.h || argv._ && argv._.length === 1 && argv._[0] === '?'){
+if (argv.help || argv.h || (argv._ && argv._.length === 1 && argv._[0] === '?')) {
   help();
 }
 
 // mix in defaults to any lotsrc file
-var argv = require('rc')(pkg.name, {
-  ignore: argv.ignore || argv.i || [],
+argv = require('rc')(pkg.name, {
+  glob: argv.glob || argv.g || [],
   all: argv.all || argv.a,
-  port: argv.port || argv.p || port,
-  cache: argv.cache || argv.c,
   directory: argv.directory || argv.d,
   todos: argv.todos || argv.t || false,
-  server: argv.server || argv.s || false,
-  group: argv.group || argv.g || 'tag'
+  by: argv.by || argv.b || 'tag'
 });
 
-if (argv.ignore) {
-  argv.ignore = typeof argv.ignore === 'string' ? [argv.ignore]: argv.ignore;
+if (argv.glob) {
+  argv.glob = typeof argv.glob === 'string' ? [argv.glob] : argv.glob;
 }
 
 if (!argv.all) {
-  argv.ignore = argv.ignore.concat(defaultIgnores);
-}
-
-if (argv.cache) {
-  argv.cache = path.join(process.cwd(), argv.cache);
-} else {
-  argv.cache = '/tmp/LOTS';
+  argv.glob = argv.glob.concat(defaultIgnores);
 }
 
 if (argv.directory) {
@@ -71,44 +56,29 @@ if (argv.directory) {
   argv.directory = process.cwd();
 }
 
-argv.exclude = '';
-if(argv.ignore) {
-  argv.ignore.forEach(function(ignore){
-    argv.exclude += ' --exclude \'' + ignore + '\'';
-  });
-}
-mkdirp.sync(argv.cache);
+// targets to search
+argv.targets = argv._.join(' ');
 
-if(process.stdout.isTTY) {
+if (process.stdout.isTTY) {
   var spinner = new Spinner('Finding tickets.. %s');
   spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏');
   spinner.start();
 }
 
-(function(){
-  if(argv.server) {
-    require('../server')(argv);
-  }
-}());
-
 var lots = LOTS(argv);
-lots.generate(function(err, data) {
-  if(spinner) {
+lots.generate(function (err, data) {
+  if (spinner) {
     spinner.stop(true);
   }
-  if(err) {
+  if (err) {
     console.warn(err);
     process.exit(1);
   }
 
-  if(argv.server) {
-    lots.log();
-  } else {
-    argv.group = argv.group || 'tag';
-    if(!tickets[argv.group]) {
-      argv.group = 'tag';
-    }
-    argv.cli = true;
-    tickets[argv.group](argv, data);
+  argv.by = argv.by || 'tag';
+  if (!tickets[argv.by]) {
+    argv.by = 'tag';
   }
+  argv.cli = true;
+  tickets[argv.by](argv, data);
 });

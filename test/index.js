@@ -1,18 +1,15 @@
 'use strict';
 
 var test = require('tape');
-var mkdirp = require('mkdirp');
 var path = require('path');
-var LOTS = require('../lib/lots');
+var lots = require('../lib/lots');
 
 var config = {
   todos: true,
-  cache: path.join(process.cwd(), 'test', 'tmp'),
-  directory: path.join(process.cwd(), 'test', 'data'),
-  exclude: ''
+  directory: path.join(process.cwd(), 'test', 'data')
 };
 
-mkdirp.sync(config.cache);
+console.log(config);
 
 var expected = {
   tickets: [{
@@ -43,10 +40,9 @@ var expected = {
   tags: ['documentation', 'TODO']
 };
 
-test('should make a request', function (t) {
+test('finds lots tickets', function (t) {
   t.plan(2);
-  var lots = LOTS(config);
-  lots.generate(function (err, res) {
+  lots(config).generate(function (err, res) {
     if (err) {
       t.fail(err);
     }

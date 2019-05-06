@@ -4,45 +4,38 @@
   "version": "2.2.0",
   "main": "lib/tickets.js",
   "scripts": {
-    "prepublish": "cp -r node_modules/hifile/assets/css/hifile.css public/css/hifile/;cp -r node_modules/hifile/assets/js/hifile.js public/js/hifile/",
-    "start": "./bin/LOTS",
+    "start": "./bin/lots",
     "test": "npm run lint && node test",
-    "gh-pages": "node gh-pages",
-    "lint": "eslint **/*.js"
+    "test:unit": "node test",
+    "lint": "eslint {lib,test}/**/*.js"
   },
   "bin": {
-    "LOTS": "bin/LOTS"
+    "lots": "bin/lots"
   },
   "dependencies": {
-    "chalk": "^1.0.0",
-    "cli-spinner": "^0.2.1",
-    "ejs": "^2.3.2",
-    "hapi": "^8.6.1",
-    "hifile": "^2.1.1",
-    "lodash": "^3.10.0",
-    "minimist": "^1.1.1",
-    "mkdirp": "^0.5.1",
-    "moment": "^2.10.3",
-    "rc": "^1.0.3",
-    "split": "^1.0.0"
+    "chalk": "^2.4.1",
+    "cli-spinner": "^0.2.10",
+    "lodash": "^4.17.11",
+    "minimist": "^1.2.0",
+    "rc": "^1.2.8",
+    "split": "^1.0.1"
   },
   "devDependencies": {
-    "eslint": "^4.13.1",
-    "eslint-config-semistandard": "^11.0.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "marked": "^0.3.3",
-    "tape": "^4.0.0"
+    "eslint": "^5.16.0",
+    "eslint-config-semistandard": "^13.0.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "tape": "^4.10.1"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/matthewhadley/LOTS.git"
+    "url": "git://github.com/matthewhadley/lots.git"
   },
   "keywords": [
-    "LOTS",
+    "lots",
     "little",
     "open",
     "ticket",
@@ -54,9 +47,9 @@
   "author": "Matthew Hadley <matthew.hadley@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/matthewhadley/LOTS/issues"
+    "url": "https://github.com/matthewhadley/lots/issues"
   },
-  "homepage": "https://github.com/matthewhadley/LOTS#readme",
+  "homepage": "https://github.com/matthewhadley/lots#readme",
   "eslintConfig": {
     "extends": "semistandard"
   }

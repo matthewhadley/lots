@@ -1,3 +1,9 @@
+# 3.0
+
+- make lots command line program only
+- update all deps
+- only support ripgrep (not grep) for performance
+
 # 2.2.0
 
 - update hifile dep and cleanup
