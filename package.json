@@ -1,7 +1,7 @@
 {
   "name": "lots",
   "description": "Little Open Ticket System. View todos and tags in a codebase.",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "main": "lib/tickets.js",
   "scripts": {
     "start": "./bin/lots",
