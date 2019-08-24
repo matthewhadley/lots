@@ -46,3 +46,7 @@ See `lots -h` for more options.
 
 lots will read any `.lotsrc` configuration file it can find in either json or ini
 format, in the [paths you might expect](https://github.com/dominictarr/rc#standards).
+
+---
+
+LOTS logo designed by [NAS](http://thenounproject.com/nas.ztu) from the [Noun Project](http://thenounproject.com/) :: Creative Commons – Attribution (CC BY 3.0)
