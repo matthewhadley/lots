@@ -1,7 +1,7 @@
 {
   "name": "lots",
   "description": "Little Open Ticket System. View todos and tags in a codebase.",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "main": "lib/tickets.js",
   "scripts": {
     "start": "./bin/lots",
@@ -15,8 +15,8 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "cli-spinner": "^0.2.10",
-    "lodash": "^4.17.15",
-    "minimist": "^1.2.0",
+    "lodash": "^4.17.19",
+    "minimist": "^1.2.3",
     "rc": "^1.2.8",
     "split": "^1.0.1"
   },
